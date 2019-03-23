@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
@@ -40,21 +41,112 @@ namespace NbaEcommerce.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
-            [EmailAddress]
+            [Required(AllowEmptyStrings = false, ErrorMessage = "Campo obbligatorio.")]
+            [MaxLength(50, ErrorMessage = "Nome azienda troppo lungo")]
+            [Display(Name = "Nome azienda")]
+            public string NomeAzienda { get; set; }
+
+            [Required(AllowEmptyStrings = false, ErrorMessage = "Campo obbligatorio.")]
+            [MaxLength(500, ErrorMessage = "Nome troppo lungo")]
+            [Display(Name = "Persona di riferimento")]
+            public string PersonaRiferimento { get; set; }
+
+            [Required(AllowEmptyStrings = false, ErrorMessage = "Campo obbligatorio.")]
+            [RegularExpression(@"^[0|3]{1}[0-9]{5,10}$", ErrorMessage = "Inserire un numero di telefono valido")]
+            [Display(Name = "Numero di telefono")]
+            public string Telefono { get; set; }
+
+            [Required(AllowEmptyStrings = false, ErrorMessage = "Campo obbligatorio.")]
+            [RegularExpression(@"^[0|3]{1}[0-9]{5,10}$", ErrorMessage = "Inserire un numero di telefono valido")]
+            [Display(Name = "Cellulare")]
+            public string Cellulare { get; set; }
+
+            [Required(AllowEmptyStrings = false, ErrorMessage = "Campo obbligatorio.")]
+            [RegularExpression(@"/^(?:(?:[B-DF-HJ-NP-TV-Z]|[AEIOU])[AEIOU][AEIOUX]|[B-DF-HJ-NP-TV-Z]{2}[A-Z]){2}[\dLMNP-V]{2}(?:[A-EHLMPR-T](?:[04LQ][1-9MNP-V]|[1256LMRS][\dLMNP-V])|[DHPS][37PT][0L]|[ACELMRT][37PT][01LM])(?:[A-MZ][1-9MNP-V][\dLMNP-V]{2}|[A-M][0L](?:[1-9MNP-V][\dLMNP-V]|[0L][1-9MNP-V]))[A-Z]$/i", ErrorMessage = "Inserire un codice fiscale valido")]
+            [Display(Name = "Codice fiscale")]
+            public string CodiceFiscale { get; set; }
+
+            [Required(AllowEmptyStrings = false, ErrorMessage = "Campo obbligatorio.")]
+            [MaxLength(11, ErrorMessage = "Inserire una partita iva valida")]
+            [Display(Name = "Partita iva")]
+            public string PartitaIva { get; set; }
+
+            [Required(AllowEmptyStrings = false, ErrorMessage = "Campo obbligatorio.")]
+            [MaxLength(8000, ErrorMessage = "Testo troppo lungo.")]
+            [Display(Name = "Note")]
+            public string Note { get; set; }
+
+            [Display(Name = "Tipo azienda")]
+            [Required(AllowEmptyStrings = false, ErrorMessage = "Campo obbligatorio.")]
+            public string TipoAzienda { get; set; }
+
+            [Required(AllowEmptyStrings = false, ErrorMessage = "Campo obbligatorio.")]
+            [DefaultValue(0)]
+            [Display(Name = "Privacy")]
+            public bool PrivacyAccettata { get; set; }
+
+            [Required(ErrorMessage = "Campo obbligatorio.")]
+            [EmailAddress(ErrorMessage = "Inserire una mail valida.")]
             [Display(Name = "Email")]
             public string Email { get; set; }
 
-            [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [Required(ErrorMessage = "Campo obbligatorio.")]
+            [StringLength(100, ErrorMessage = "La password deve essere lunga almeno 6 caratteri.", MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "Password")]
             public string Password { get; set; }
 
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Display(Name = "Conferma password")]
+            [Compare("Password", ErrorMessage = "Le due password non coincidono.")]
             public string ConfirmPassword { get; set; }
+
+            //Dati Sede legale
+            [Required(AllowEmptyStrings = false, ErrorMessage = "Campo obbligatorio.")]
+            [MaxLength(800, ErrorMessage = "Testo troppo lungo.")]
+            [Display(Name = "Indirizzo")]
+            public string IndirizzoSedeLegale { get; set; }
+
+            [Required(AllowEmptyStrings = false, ErrorMessage = "Campo obbligatorio.")]
+            [Range(0, 99999, ErrorMessage = "Inserire un cap valido")]
+            [Display(Name = "Cap")]
+            public int CapSedeLegale { get; set; }
+
+            [Required(AllowEmptyStrings = false, ErrorMessage = "Campo obbligatorio.")]
+            [Display(Name = "Città")]
+            [MaxLength(80, ErrorMessage = "Testo troppo lungo.")]
+            public string CittàSedeLegale { get; set; }
+
+            [Required(AllowEmptyStrings = false, ErrorMessage = "Campo obbligatorio.")]
+            [MaxLength(2, ErrorMessage = "Inserire una provincia valida.")]
+            [Display(Name = "Provincia")]
+            public string ProvinciaSedeLegale { get; set; }
+
+            [Required(AllowEmptyStrings = false, ErrorMessage = "Campo obbligatorio.")]
+            [MaxLength(80, ErrorMessage = "Testo troppo lungo.")]
+            [Display(Name = "Nazione")]
+            public string NazioneSedeLegale { get; set; }
+
+            //Dati Sede Operativa
+            [MaxLength(800, ErrorMessage = "Testo troppo lungo.")]
+            [Display(Name = "Indirizzo")]
+            public string IndirizzoSedeOperativa { get; set; }
+
+            [Range(0, 99999, ErrorMessage = "Inserire un cap valido")]
+            [Display(Name = "Cap")]
+            public int CapSedeOperativa { get; set; }
+
+            [MaxLength(80, ErrorMessage = "Testo troppo lungo.")]
+            [Display(Name = "Città")]
+            public string CittàSedeOperativa { get; set; }
+
+            [MaxLength(2, ErrorMessage = "Inserire una provincia valida.")]
+            [Display(Name = "Provincia")]
+            public string ProvinciaSedeOperativa { get; set; }
+
+            [MaxLength(80, ErrorMessage = "Testo troppo lungo.")]
+            [Display(Name = "Nazione")]
+            public string NazioneSedeOperativa { get; set; }
         }
 
         public void OnGet(string returnUrl = null)

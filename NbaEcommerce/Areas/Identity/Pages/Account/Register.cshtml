@@ -1,17 +1,103 @@
 ﻿@page
 @model RegisterModel
 @{
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = "Modulo di Registrazione";
 }
 
-<h2>@ViewData["Title"]</h2>
+<div class="row">
+    <div class=" col-sm-10 col-md-10 mx-auto mb-3">
+        <h2 style="text-align:center">@ViewData["Title"]</h2>
+        <hr />
+        <h6 class="alert alert-danger" style="text-align:center">Esclusivamente per Centri Assistenza e Dealer telefonia.</h6>
+        <hr />
+        <div class="card border-left-primary shadow h-100">
+            <div class="card-body">
+                <form class="needs-validation" asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-row justify-content-center">
+                        <div class="col-md-6 mb-4">
+                            <label asp-for="Input.NomeAzienda"></label>
+                            <input asp-for="Input.NomeAzienda" class="form-control" />
+                            <span asp-validation-for="Input.NomeAzienda" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <label asp-for="Input.PersonaRiferimento"></label>
+                            <input asp-for="Input.PersonaRiferimento" class="form-control" />
+                            <span asp-validation-for="Input.PersonaRiferimento" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-row justify-content-center">
+                        <div class="col-md-6 mb-4">
+                            <label asp-for="Input.Telefono"></label>
+                            <input asp-for="Input.Telefono" class="form-control" />
+                            <span asp-validation-for="Input.Telefono" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <label asp-for="Input.Cellulare"></label>
+                            <input asp-for="Input.Cellulare" class="form-control" />
+                            <span asp-validation-for="Input.Cellulare" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-row justify-content-center">
+                        <div class="col-md-6 mb-4">
+                            <label asp-for="Input.CodiceFiscale"></label>
+                            <input asp-for="Input.CodiceFiscale" class="form-control" />
+                            <span asp-validation-for="Input.CodiceFiscale" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <label asp-for="Input.PartitaIva"></label>
+                            <input asp-for="Input.PartitaIva" class="form-control" />
+                            <span asp-validation-for="Input.PartitaIva" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-row justify-content-center">
+                        <div class="col-md-3 mb-3">
+                            <label asp-for="Input.TipoAzienda" class="control-label"></label>
+                            @Html.DropDownList("Tipo azienda", new List<SelectListItem> {
+                               new SelectListItem { Value = "CentroAssistenza" , Text = "Centro assistenza" },
+                               new SelectListItem { Value = "PuntoVendita" , Text = "Punto vendita" },
+                            }, new { @class = "form-control", @id= "ddlTipoAzienda" })
+                            <span asp-validation-for="Input.TipoAzienda" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-9 mb-3">
+                            <label asp-for="Input.Note"></label>
+                            <input asp-for="Input.Note" class="form-control" />
+                            <span asp-validation-for="Input.Note" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="alert alert-light" role="alert" style="text-align:center">
+                        Dati sede legale
+                    </div>
+                    <hr />
+                    <div class="alert alert-light" role="alert" style="text-align:center">
+                        Dati sede operativa (se diversa)
+                    </div>
+                    <hr />
+                </form>
+                <div class="form-row  justify-content-center">
+                    <div class="col-md-6 offset-3">
+                        <input type="submit" id="btnRegistra" value="Registrati" style="height:100% !important" class="btn btn-lg btn-primary float-left" disabled="disabled" />
+                        <a asp-action="create" class="btn btn-lg btn-danger float-left ml-3">Annulla</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-8 offset-2 text-center">
+        <h2>@ViewData["Title"]</h2>
         <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <h4>Create a new account.</h4>
+            <h6 class="alert alert-danger">Esclusivamente per Centri Assistenza e Dealer telefonia.</h6>
             <hr />
-            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group form-horizontal">
+
+            </div>
+            <div class="form-group">
+
+            </div>
             <div class="form-group">
                 <label asp-for="Input.Email"></label>
                 <input asp-for="Input.Email" class="form-control" />
@@ -28,6 +114,50 @@
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
             <button type="submit" class="btn btn-default">Register</button>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputEmail4">Email</label>
+                    <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputPassword4">Password</label>
+                    <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputAddress">Address</label>
+                <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+            </div>
+            <div class="form-group">
+                <label for="inputAddress2">Address 2</label>
+                <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputCity">City</label>
+                    <input type="text" class="form-control" id="inputCity">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="inputState">State</label>
+                    <select id="inputState" class="form-control">
+                        <option selected>Choose...</option>
+                        <option>...</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="inputZip">Zip</label>
+                    <input type="text" class="form-control" id="inputZip">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="gridCheck">
+                    <label class="form-check-label" for="gridCheck">
+                        Check me out
+                    </label>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Sign in</button>
         </form>
     </div>
 </div>
