@@ -1,0 +1,44 @@
+﻿@model IEnumerable<NbaEcommerce.ViewModels.ViewProdottoViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row mt-2">
+    <div class="col-6">
+        <h2>Catalogo</h2>
+    </div>
+</div>
+
+<hr />
+
+<form asp-action="Index" class="mb-2">
+    <div class="row">
+        <div class="col-3">
+            <input name="categoria" type="text" class="form-control" placeholder="Categoria prodotto" value="@ViewBag.categoria">
+        </div>
+        <div class="col-3">
+            <input name="marchio" type="text" class="form-control" placeholder="Marchio" value="@ViewBag.marchio">
+        </div>
+        <div class="col-3">
+            <input type="submit" value="Cerca" class="btn btn-primary" />
+        </div>
+    </div>
+</form>
+
+<div class="row mt-5">
+    @foreach (NbaEcommerce.ViewModels.ViewProdottoViewModel prodotto in Model)
+    {
+        <div class="col-3">
+            <div class="card ml-2" style="height:300px;">
+                <img src="..." class="card-img-top" alt="...">
+                <div class="card-body text-center">
+                    <h5 class="card-title">@prodotto.Descrizione</h5>
+
+                    <a asp-action="Details" asp-route-id="@prodotto.Id" title="Dettaglio" class="btn btn-sm btn-outline-primary">Maggiori informazioni</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

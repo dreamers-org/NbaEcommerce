@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using NbaEcommerce.ViewModels;
 
 namespace NbaEcommerce.Models
 {
@@ -20,6 +21,7 @@ namespace NbaEcommerce.Models
         public virtual DbSet<Marchio> Marchio { get; set; }
         public virtual DbSet<Prodotto> Prodotto { get; set; }
 
+        public virtual DbQuery<ViewProdottoViewModel> ViewProdotto { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)

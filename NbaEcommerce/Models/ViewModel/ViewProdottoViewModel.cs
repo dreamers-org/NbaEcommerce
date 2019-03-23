@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace NbaEcommerce.Models
+namespace NbaEcommerce.ViewModels
 {
-    public partial class Prodotto
+    public partial class ViewProdottoViewModel
     {
-        public Prodotto()
+        public ViewProdottoViewModel()
         {
-            Immagine = new HashSet<Immagine>();
         }
 
         public Guid Id { get; set; }
@@ -23,8 +22,7 @@ namespace NbaEcommerce.Models
         public double PrezzoAcquisto { get; set; }
         public bool Attivo { get; set; }
         public int Quantità { get; set; }
-        public Categoria IdCategoriaNavigation { get; set; }
-        public Marchio IdMarchioNavigation { get; set; }
-        public ICollection<Immagine> Immagine { get; set; }
+        public string Marchio { get; set; }
+        public string Categoria { get; set; }
     }
 }

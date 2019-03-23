@@ -19,9 +19,22 @@ namespace NbaEcommerce.Controllers
         }
 
         // GET: Prodotto
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string marchio, string categoria)
         {
-            var nbaStoreContext = _context.Prodotto.Include(p => p.IdCategoriaNavigation).Include(p => p.IdMarchioNavigation);
+            ViewData["marchio"] = marchio;
+            ViewData["categoria"] = categoria;
+
+            var nbaStoreContext = _context.ViewProdotto.Where(x => (string.IsNullOrEmpty(marchio) || x.Marchio.Contains(marchio)) & (string.IsNullOrEmpty(categoria) || x.Categoria.Contains(categoria)));
+            return View(await nbaStoreContext.ToListAsync());
+        }
+
+        // GET: Prodotto
+        public async Task<IActionResult> IndexCliente(string marchio, string categoria)
+        {
+            ViewData["marchio"] = marchio;
+            ViewData["categoria"] = categoria;
+
+            var nbaStoreContext = _context.ViewProdotto.Where(x => (string.IsNullOrEmpty(marchio) || x.Marchio.Contains(marchio)) & (string.IsNullOrEmpty(categoria) || x.Categoria.Contains(categoria)));
             return View(await nbaStoreContext.ToListAsync());
         }
 
@@ -58,7 +71,7 @@ namespace NbaEcommerce.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,IdMarchio,IdCategoria,PrezzoVendita,PrezzoAcquisto,Attivo,Quantità")] Prodotto prodotto)
+        public async Task<IActionResult> Create([Bind("Id,IdMarchio,IdCategoria,Descrizione,PrezzoVendita,PrezzoAcquisto,Attivo,Quantità")] Prodotto prodotto)
         {
             if (ModelState.IsValid)
             {
@@ -95,7 +108,7 @@ namespace NbaEcommerce.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,IdMarchio,IdCategoria,PrezzoVendita,PrezzoAcquisto,Attivo,Quantità")] Prodotto prodotto)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Id,IdMarchio,IdCategoria,Descrizione,PrezzoVendita,PrezzoAcquisto,Attivo,Quantità")] Prodotto prodotto)
         {
             if (id != prodotto.Id)
             {

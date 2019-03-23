@@ -7,6 +7,7 @@
 
     <script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="~/dist/main.bundle.js"></script>
+    <link href="~/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 </head>
 <body>
@@ -20,25 +21,40 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarColor03">
                 <ul class="navbar-nav mr-auto">
-                    @{
-                        if (User.IsInRole("Admin"))
-                        {
-                            <li class="nav-item">
-                                <a class="dropdown-item" asp-controller="Tipo" asp-action="Index">
-                                    Gestione catalogo
-                                </a>
-                            </li>
-                        }
-                        else
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Catalogo</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Azienda</a>
-                            </li>
-                        }
-                    }
+                    @*@{
+        if (User.IsInRole("Admin"))
+        {*@
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Prodotto" asp-action="IndexCliente">
+                            Catalogo online (cliente)
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Prodotto" asp-action="Index">
+                            Prodotti
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Marchio" asp-action="Index">
+                            Marchi
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Categoria" asp-action="Index">
+                            Categorie
+                        </a>
+                    </li>
+                    @*}
+            else
+            {
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Catalogo</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Azienda</a>
+                </li>
+            }
+        }*@
                 </ul>
             </div>
             <form class="form-inline my-2 my-lg-0">
