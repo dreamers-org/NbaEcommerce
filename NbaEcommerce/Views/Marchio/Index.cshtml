@@ -1,0 +1,50 @@
+﻿@model IEnumerable<NbaEcommerce.Models.Marchio>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row mt-2">
+    <div class="col-6">
+        <h2>Lista marchi</h2>
+    </div>
+    <div class="col-6">
+        <a asp-action="Create" class="btn btn-outline-dark float-right mt-2">Aggiungi un marchio</a>
+    </div>
+</div>
+
+<hr />
+
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">
+                @Html.DisplayNameFor(model => model.Descrizione)
+            </th>
+            <th scope="col">
+                @Html.DisplayNameFor(model => model.Attivo)
+            </th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Descrizione)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Attivo)
+                </td>
+                <td class="text-right">
+                    <a asp-action="Edit" asp-route-id="@item.Id" title="Modifica"><i class="fas fa-edit"></i></a>
+                    <a asp-action="Details" asp-route-id="@item.Id" title="Dettaglio"><i class="fas fa-list-alt"></i></a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" title="Elimina" class="text-danger"><i class="fas fa-trash"></i></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
