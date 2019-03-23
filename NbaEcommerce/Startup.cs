@@ -6,12 +6,14 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using NbaEcommerce.Areas.Identity.Data;
 using NbaEcommerce.Models;
 using NbaEcommerce.Services;
 using Serilog;
@@ -40,6 +42,7 @@ namespace NbaEcommerce
                 services.AddDbContext<NbaStoreContext>(options => options.UseSqlServer(Configuration.GetConnectionString("NbaStoreContextConnection")));
                 services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
                 services.AddTransient<IEmailSender, EmailSender>();
+                services.AddScoped<IUserClaimsPrincipalFactory<NbaEcommerceUser>, CustomClaimsPrincipalFactory>();
                 services.AddSession(options =>
                 {
                     options.IdleTimeout = TimeSpan.FromMinutes(30);
