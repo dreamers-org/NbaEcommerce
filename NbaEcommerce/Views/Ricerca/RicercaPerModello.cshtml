@@ -1,0 +1,33 @@
+﻿@model IEnumerable<NbaEcommerce.Models.Marchio>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row mt-2">
+    <div class="col-6">
+        <h2>Ricerca per modello</h2>
+    </div>
+</div>
+<hr />
+
+<div class="row">
+    @foreach (NbaEcommerce.Models.Marchio marchio in Model)
+    {
+        <div class="col-sm-3 col-md-2">
+            <div class="card ml-2" style="height:150px;">
+                <img src="..." class="card-img-top" alt="...">
+                <div class="card-body text-center">
+                    <h5 class="card-title">@marchio.Descrizione</h5>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+
+
+
+

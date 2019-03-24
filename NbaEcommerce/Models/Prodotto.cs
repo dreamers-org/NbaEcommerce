@@ -14,6 +14,8 @@ namespace NbaEcommerce.Models
         public Guid Id { get; set; }
         public Guid IdMarchio { get; set; }
         public Guid IdCategoria { get; set; }
+        public string Titolo { get; set; }
+
         public string Descrizione { get; set; }
 
         [DisplayName("Prezzo vendita")]
