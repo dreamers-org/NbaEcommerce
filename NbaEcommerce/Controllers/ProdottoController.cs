@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -33,6 +35,7 @@ namespace NbaEcommerce.Controllers
         {
             ViewData["marchio"] = marchio;
             ViewData["categoria"] = categoria;
+            ViewData["marchi"] = _context.Marchio.ToListAsync();
 
             var nbaStoreContext = _context.ViewProdotto.Where(x => (string.IsNullOrEmpty(marchio) || x.Marchio.Contains(marchio)) & (string.IsNullOrEmpty(categoria) || x.Categoria.Contains(categoria)));
             return View(await nbaStoreContext.ToListAsync());
@@ -71,17 +74,34 @@ namespace NbaEcommerce.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,IdMarchio,IdCategoria,Descrizione,PrezzoVendita,PrezzoAcquisto,Attivo,Quantità")] Prodotto prodotto)
+        public async Task<IActionResult> Create([Bind("Id,IdMarchio,IdCategoria,Titolo,Descrizione,PrezzoVendita,PrezzoAcquisto,Attivo,Quantità")] Prodotto prodotto, List<IFormFile> immagini)
         {
             if (ModelState.IsValid)
             {
                 prodotto.Id = Guid.NewGuid();
                 _context.Add(prodotto);
                 await _context.SaveChangesAsync();
+
+                // full path to file in temp location
+                var filePath = Path.GetTempFileName();
+
+                foreach (IFormFile formFile in immagini)
+                {
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        await formFile.CopyToAsync(memoryStream);
+                        Immagine img = new Immagine { Id = Guid.NewGuid(), IdProdotto = prodotto.Id, Data = memoryStream.ToArray() };
+                        _context.Immagine.Add(img);
+                        await _context.SaveChangesAsync();
+                    }
+                }
+
                 return RedirectToAction(nameof(Index));
             }
+
             ViewData["IdCategoria"] = new SelectList(_context.Categoria, "Id", "Descrizione", prodotto.IdCategoria);
             ViewData["IdMarchio"] = new SelectList(_context.Marchio, "Id", "Descrizione", prodotto.IdMarchio);
+
             return View(prodotto);
         }
 
@@ -108,7 +128,7 @@ namespace NbaEcommerce.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,IdMarchio,IdCategoria,Descrizione,PrezzoVendita,PrezzoAcquisto,Attivo,Quantità")] Prodotto prodotto)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Id,IdMarchio,IdCategoria,Titolo,Descrizione,PrezzoVendita,PrezzoAcquisto,Attivo,Quantità")] Prodotto prodotto)
         {
             if (id != prodotto.Id)
             {
