@@ -134,7 +134,7 @@ namespace NbaEcommerce.Areas.Identity.Pages.Account
 
             [Range(0, 99999, ErrorMessage = "Inserire un cap valido")]
             [Display(Name = "Cap.")]
-            public int CapSedeOperativa { get; set; }
+            public int? CapSedeOperativa { get; set; }
 
             [MaxLength(80, ErrorMessage = "Testo troppo lungo.")]
             [Display(Name = "Città")]
@@ -162,7 +162,25 @@ namespace NbaEcommerce.Areas.Identity.Pages.Account
                 var user = new NbaEcommerceUser
                 {
                     UserName = Input.Email,
-                    Email = Input.Email
+                    Email = Input.Email,
+                    NomeAzienda = Input.NomeAzienda,
+                    PersonaRiferimento = Input.PersonaRiferimento,
+                    Telefono = Input.Telefono,
+                    CodiceFiscale = Input.CodiceFiscale,
+                    PartitaIva = Input.PartitaIva,
+                    Note = Input.Note,
+                    TipoAzienda = Input.TipoAzienda,
+                    PrivacyAccettata = Input.PrivacyAccettata,
+                    IndirizzoSedeLegale = Input.IndirizzoSedeLegale,
+                    CapSedeLegale = Input.CapSedeLegale,
+                    CittàSedeLegale = Input.CittàSedeLegale,
+                    ProvinciaSedeLegale = Input.ProvinciaSedeLegale,
+                    NazioneSedeLegale = Input.NazioneSedeLegale,
+                    IndirizzoSedeOperativa = Input.IndirizzoSedeOperativa,
+                    CapSedeOperativa = Input.CapSedeOperativa,
+                    CittàSedeOperativa = Input.CittàSedeOperativa,
+                    ProvinciaSedeOperativa = Input.ProvinciaSedeOperativa,
+                    NazioneSedeOperativa = Input.NazioneSedeOperativa
                 };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)

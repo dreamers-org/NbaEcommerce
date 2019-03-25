@@ -10,8 +10,8 @@ using NbaEcommerce.Models;
 namespace NbaEcommerce.Migrations
 {
     [DbContext(typeof(IdentityContext))]
-    [Migration("20190323153613_CreateIdentitySchema")]
-    partial class CreateIdentitySchema
+    [Migration("20190325201110_CorrectionToFiscalCode")]
+    partial class CorrectionToFiscalCode
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -138,6 +138,21 @@ namespace NbaEcommerce.Migrations
 
                     b.Property<int>("AccessFailedCount");
 
+                    b.Property<int>("CapSedeLegale");
+
+                    b.Property<int>("CapSedeOperativa");
+
+                    b.Property<string>("CittàSedeLegale")
+                        .IsRequired()
+                        .HasMaxLength(80);
+
+                    b.Property<string>("CittàSedeOperativa")
+                        .HasMaxLength(80);
+
+                    b.Property<string>("CodiceFiscale")
+                        .IsRequired()
+                        .HasMaxLength(16);
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
@@ -146,9 +161,27 @@ namespace NbaEcommerce.Migrations
 
                     b.Property<bool>("EmailConfirmed");
 
+                    b.Property<string>("IndirizzoSedeLegale")
+                        .IsRequired()
+                        .HasMaxLength(800);
+
+                    b.Property<string>("IndirizzoSedeOperativa")
+                        .HasMaxLength(800);
+
                     b.Property<bool>("LockoutEnabled");
 
                     b.Property<DateTimeOffset?>("LockoutEnd");
+
+                    b.Property<string>("NazioneSedeLegale")
+                        .IsRequired()
+                        .HasMaxLength(80);
+
+                    b.Property<string>("NazioneSedeOperativa")
+                        .HasMaxLength(80);
+
+                    b.Property<string>("NomeAzienda")
+                        .IsRequired()
+                        .HasMaxLength(50);
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256);
@@ -156,13 +189,40 @@ namespace NbaEcommerce.Migrations
                     b.Property<string>("NormalizedUserName")
                         .HasMaxLength(256);
 
+                    b.Property<string>("Note")
+                        .IsRequired()
+                        .HasMaxLength(8000);
+
+                    b.Property<string>("PartitaIva")
+                        .IsRequired()
+                        .HasMaxLength(11);
+
                     b.Property<string>("PasswordHash");
+
+                    b.Property<string>("PersonaRiferimento")
+                        .IsRequired()
+                        .HasMaxLength(500);
 
                     b.Property<string>("PhoneNumber");
 
                     b.Property<bool>("PhoneNumberConfirmed");
 
+                    b.Property<bool>("PrivacyAccettata");
+
+                    b.Property<string>("ProvinciaSedeLegale")
+                        .IsRequired()
+                        .HasMaxLength(2);
+
+                    b.Property<string>("ProvinciaSedeOperativa")
+                        .HasMaxLength(2);
+
                     b.Property<string>("SecurityStamp");
+
+                    b.Property<string>("Telefono")
+                        .IsRequired();
+
+                    b.Property<string>("TipoAzienda")
+                        .IsRequired();
 
                     b.Property<bool>("TwoFactorEnabled");
 

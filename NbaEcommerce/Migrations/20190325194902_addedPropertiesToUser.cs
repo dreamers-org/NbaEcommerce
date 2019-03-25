@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace NbaEcommerce.Migrations
 {
-    public partial class CreateIdentitySchema : Migration
+    public partial class addedPropertiesToUser : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -40,7 +40,25 @@ namespace NbaEcommerce.Migrations
                     TwoFactorEnabled = table.Column<bool>(nullable: false),
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
-                    AccessFailedCount = table.Column<int>(nullable: false)
+                    AccessFailedCount = table.Column<int>(nullable: false),
+                    NomeAzienda = table.Column<string>(maxLength: 50, nullable: false),
+                    PersonaRiferimento = table.Column<string>(maxLength: 500, nullable: false),
+                    Telefono = table.Column<string>(nullable: false),
+                    CodiceFiscale = table.Column<string>(maxLength: 11, nullable: false),
+                    PartitaIva = table.Column<string>(maxLength: 11, nullable: false),
+                    Note = table.Column<string>(maxLength: 8000, nullable: false),
+                    TipoAzienda = table.Column<string>(nullable: false),
+                    PrivacyAccettata = table.Column<bool>(nullable: false),
+                    IndirizzoSedeLegale = table.Column<string>(maxLength: 800, nullable: false),
+                    CapSedeLegale = table.Column<int>(nullable: false),
+                    CittàSedeLegale = table.Column<string>(maxLength: 80, nullable: false),
+                    ProvinciaSedeLegale = table.Column<string>(maxLength: 2, nullable: false),
+                    NazioneSedeLegale = table.Column<string>(maxLength: 80, nullable: false),
+                    IndirizzoSedeOperativa = table.Column<string>(maxLength: 800, nullable: true),
+                    CapSedeOperativa = table.Column<int>(nullable: false),
+                    CittàSedeOperativa = table.Column<string>(maxLength: 80, nullable: true),
+                    ProvinciaSedeOperativa = table.Column<string>(maxLength: 2, nullable: true),
+                    NazioneSedeOperativa = table.Column<string>(maxLength: 80, nullable: true)
                 },
                 constraints: table =>
                 {

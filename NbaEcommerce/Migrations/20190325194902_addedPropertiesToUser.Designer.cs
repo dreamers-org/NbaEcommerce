@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NbaEcommerce.Models;
 
 namespace NbaEcommerce.Migrations
 {
     [DbContext(typeof(IdentityContext))]
-    partial class IdentityContextModelSnapshot : ModelSnapshot
+    [Migration("20190325194902_addedPropertiesToUser")]
+    partial class addedPropertiesToUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -138,7 +140,7 @@ namespace NbaEcommerce.Migrations
 
                     b.Property<int>("CapSedeLegale");
 
-                    b.Property<int?>("CapSedeOperativa");
+                    b.Property<int>("CapSedeOperativa");
 
                     b.Property<string>("CittàSedeLegale")
                         .IsRequired()
@@ -149,7 +151,7 @@ namespace NbaEcommerce.Migrations
 
                     b.Property<string>("CodiceFiscale")
                         .IsRequired()
-                        .HasMaxLength(16);
+                        .HasMaxLength(11);
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
