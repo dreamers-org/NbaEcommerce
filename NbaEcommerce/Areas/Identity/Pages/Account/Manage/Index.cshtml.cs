@@ -54,7 +54,7 @@ namespace NbaEcommerce.Areas.Identity.Pages.Account.Manage
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return NotFound($"Impossibile trovare l'utente con ID '{_userManager.GetUserId(User)}'.");
             }
 
             var userName = await _userManager.GetUserNameAsync(user);
@@ -84,7 +84,7 @@ namespace NbaEcommerce.Areas.Identity.Pages.Account.Manage
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return NotFound($"Impossibile trovare l'utente con ID '{_userManager.GetUserId(User)}'.");
             }
 
             var email = await _userManager.GetEmailAsync(user);
@@ -110,7 +110,7 @@ namespace NbaEcommerce.Areas.Identity.Pages.Account.Manage
             }
 
             await _signInManager.RefreshSignInAsync(user);
-            StatusMessage = "Your profile has been updated";
+            StatusMessage = "Il profilo è stato aggiornato.";
             return RedirectToPage();
         }
 
@@ -124,7 +124,7 @@ namespace NbaEcommerce.Areas.Identity.Pages.Account.Manage
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return NotFound($"Impossibile trovare l'utente con ID '{_userManager.GetUserId(User)}'.");
             }
 
 
@@ -138,10 +138,10 @@ namespace NbaEcommerce.Areas.Identity.Pages.Account.Manage
                 protocol: Request.Scheme);
             await _emailSender.SendEmailAsync(
                 email,
-                "Confirm your email",
-                $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                "Conferma la tua mail",
+                $"Puoi confermare la tua identità<a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>cliccando qui</a>.");
 
-            StatusMessage = "Verification email sent. Please check your email.";
+            StatusMessage = "Mail di conferma account inviata. Controlla la posta (anche la cartella SPAM).";
             return RedirectToPage();
         }
     }

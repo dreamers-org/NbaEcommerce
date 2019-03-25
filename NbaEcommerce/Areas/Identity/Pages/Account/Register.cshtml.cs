@@ -80,7 +80,7 @@ namespace NbaEcommerce.Areas.Identity.Pages.Account
             [Required(AllowEmptyStrings = false, ErrorMessage = "Campo obbligatorio.")]
             public string TipoAzienda { get; set; }
 
-            [Required(AllowEmptyStrings = false, ErrorMessage = "Campo obbligatorio.")]
+            [MustBeTrue(ErrorMessage = "L'accettazione delle condizioni è obbligatoria!")]
             [DefaultValue(0)]
             [Display(Name = "Privacy*")]
             public bool PrivacyAccettata { get; set; }
@@ -193,23 +193,36 @@ namespace NbaEcommerce.Areas.Identity.Pages.Account
                         pageHandler: null,
                         values: new { userId = user.Id, code = code },
                         protocol: Request.Scheme);
-                    var claim = new Claim("Test", "ok");
-                    await _userManager.AddClaimAsync(user, claim);
 
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    await _emailSender.SendEmailAsync(Input.Email, "Conferma la tua mail.",
+                    $"Puoi confermare il tuo account<a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>cliccando qui</a>.");
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     return LocalRedirect(returnUrl);
                 }
                 foreach (var error in result.Errors)
                 {
+                    if (error.Description.IndexOf("taken") != -1)
+                    {
+                        ModelState.AddModelError(string.Empty, "Nome utente già in uso.");
+                    }
+                    else
+                    {
                     ModelState.AddModelError(string.Empty, error.Description);
+                    }
                 }
             }
 
             // If we got this far, something failed, redisplay form
             return Page();
+        }
+
+        public class MustBeTrueAttribute : ValidationAttribute
+        {
+            public override bool IsValid(object value)
+            {
+                return value is bool && (bool)value;
+            }
         }
     }
 }
