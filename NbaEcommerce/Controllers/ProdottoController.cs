@@ -35,10 +35,10 @@ namespace NbaEcommerce.Controllers
         {
             ViewData["marchio"] = marchio;
             ViewData["categoria"] = categoria;
-            ViewData["marchi"] = _context.Marchio.ToListAsync();
+            ViewData["marchi"] = _context.Marchio.ToList();
 
             var nbaStoreContext = _context.ViewProdotto.Where(x => (string.IsNullOrEmpty(marchio) || x.Marchio.Contains(marchio)) & (string.IsNullOrEmpty(categoria) || x.Categoria.Contains(categoria)));
-            return View(await nbaStoreContext.ToListAsync());
+            return View(nbaStoreContext.ToList());
         }
 
         // GET: Prodotto/Details/5
