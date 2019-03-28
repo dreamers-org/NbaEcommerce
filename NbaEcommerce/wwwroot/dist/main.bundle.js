@@ -257,7 +257,7 @@ var singleton = null;
 var	singletonCounter = 0;
 var	stylesInsertedAtTop = [];
 
-var	fixUrls = __webpack_require__(15);
+var	fixUrls = __webpack_require__(16);
 
 module.exports = function(list, options) {
 	if (typeof DEBUG !== "undefined" && DEBUG) {
@@ -4847,20 +4847,49 @@ return $;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-//import delle librerie
+//import delle librerie esterne
 var $ = __webpack_require__(1);
 __webpack_require__(4);
 __webpack_require__(7);
 __webpack_require__(8);
 __webpack_require__(5);
 __webpack_require__(12);
+//import librerie interne
+var sitemap_1 = __webpack_require__(13);
 //import dei css
-__webpack_require__(13);
-__webpack_require__(16);
-__webpack_require__(18);
+__webpack_require__(14);
+__webpack_require__(17);
+__webpack_require__(19);
 $(document).ready(function () {
-    console.log("applicazione avviata.");
+    try {
+        //ottengo l'url corrente.
+        var currentUrl = window.location.pathname;
+        console.log("CurrentUrl" + currentUrl);
+        //if (currentUrl == "/") {
+        //    $("#pageHome").addClass("active");
+        //} else {
+        //in base alla pagina corrente attivo la funzione corretta.
+        for (var i = 0; i < sitemap_1.arrayPageModules.length; i++) {
+            if (currentUrl.indexOf(sitemap_1.arrayPageModules[i].page) !== -1) {
+                if (sitemap_1.arrayPageModules[i].function) {
+                    sitemap_1.arrayPageModules[i].function();
+                }
+                console.log("attivatore:" + sitemap_1.arrayPageModules[i].menuItem);
+                attivaMenuItemCorrente(sitemap_1.arrayPageModules[i].menuItem);
+            }
+        }
+        //}
+    }
+    catch (ex) {
+        //let err: Errore = new Errore
+        //err.tracciaErrore(ex, "document.ready_main.ts");
+        console.log("errore:");
+    }
 });
+function attivaMenuItemCorrente(idMenuItem) {
+    console.log(idMenuItem);
+    $("#" + idMenuItem).parent().addClass("nav-item-active");
+}
 
 
 /***/ }),
@@ -12592,8 +12621,44 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 /* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
+"use strict";
 
-var content = __webpack_require__(14);
+//import { attivatorePaginaCreate } from "./ordinecliente-create";
+//import { attivatorePaginaCreateArticolo } from "./articolo-create";
+//import { attivatorePaginaIndexPackingList } from "./packinglist-index";
+//import { attivatorePaginaOrdineClienteRiepilogo } from "./ordinecliente-riepilogo"
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.arrayPageModules = [
+    {
+        page: "/Prodotto/IndexCliente",
+        //function: function (destination, template) { attivatorePaginaCreate() },
+        menuItem: "itemCatalogoCliente"
+    }
+    //,
+    //{
+    //    page: "/OrdineCliente/Riepilogo",
+    //    function: function (destination, template) { attivatorePaginaOrdineClienteRiepilogo() },
+    //    menuItem: "navbarDropdown"
+    //},
+    //{
+    //    page: "/Articolo/Create",
+    //    function: function (destination, template) { attivatorePaginaCreateArticolo() },
+    //    menuItem: "navbarDropdown"
+    //},
+    //{
+    //    page: "/PackingList/Index",
+    //    function: function (destination, template) { attivatorePaginaIndexPackingList() },
+    //    menuItem: "navbarDropdown"
+    //}
+];
+
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(15);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -12639,7 +12704,7 @@ if(false) {
 }
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
@@ -12649,7 +12714,7 @@ exports.push([module.i, "/*!\n * Bootstrap v4.3.1 (https://getbootstrap.com/)\n 
 
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports) {
 
 
@@ -12744,11 +12809,11 @@ module.exports = function (css) {
 
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(17);
+var content = __webpack_require__(18);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -12794,21 +12859,21 @@ if(false) {
 }
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
 // Module
-exports.push([module.i, "/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification\r\nfor details on configuring this project to bundle and minify static web assets. */\r\n\r\na.navbar-brand {\r\n  white-space: normal;\r\n  text-align: center;\r\n  word-break: break-all;\r\n}\r\n\r\n/* Sticky footer styles\r\n-------------------------------------------------- */\r\nhtml {\r\n  font-size: 14px;\r\n}\r\n@media (min-width: 768px) {\r\n  html {\r\n    font-size: 16px;\r\n  }\r\n}\r\n\r\n.border-top {\r\n  border-top: 1px solid #e5e5e5;\r\n}\r\n.border-bottom {\r\n  border-bottom: 1px solid #e5e5e5;\r\n}\r\n\r\n.box-shadow {\r\n  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);\r\n}\r\n\r\nbutton.accept-policy {\r\n  font-size: 1rem;\r\n  line-height: inherit;\r\n}\r\n\r\n/* Sticky footer styles\r\n-------------------------------------------------- */\r\nhtml {\r\n  position: relative;\r\n  min-height: 100%;\r\n}\r\n\r\nbody {\r\n  /* Margin bottom by footer height */\r\n  margin-bottom: 60px;\r\n}\r\n.footer {\r\n  position: absolute;\r\n  bottom: 0;\r\n  width: 100%;\r\n  white-space: nowrap;\r\n  /* Set the fixed height of the footer here */\r\n  height: 60px;\r\n  line-height: 60px; /* Vertically center the text there */\r\n}\r\n", ""]);
+exports.push([module.i, "/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification\\ \r\nfor details on configuring this project to bundle and minify static web assets. */\r\nbody {\r\n    //padding-top: 50px;\r\n    padding-bottom: 20px;\r\n}\r\n\r\n/* Wrapping element */\r\n/* Set some basic padding to keep content from hitting the edges */\r\n.body-content {\r\n    padding-left: 15px;\r\n    padding-right: 15px;\r\n}\r\n\r\n/* Carousel */\r\n.carousel-caption p {\r\n    font-size: 20px;\r\n    line-height: 1.4;\r\n}\r\n\r\n/* Make .svg files in the carousel display properly in older browsers */\r\n.carousel-inner .item img[src$=\".svg\"] {\r\n    width: 100%;\r\n}\r\n\r\n/* QR code generator */\r\n#qrCode {\r\n    margin: 15px;\r\n}\r\n\r\n/* Hide/rearrange for smaller screens */\r\n@media screen and (max-width: 767px) {\r\n    /* Hide captions */\r\n    .carousel-caption {\r\n        display: none;\r\n    }\r\n}\r\n", ""]);
 
 
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(19);
+var content = __webpack_require__(20);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -12854,12 +12919,12 @@ if(false) {
 }
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
 // Module
-exports.push([module.i, "", ""]);
+exports.push([module.i, ".nav-item-active {\r\n    margin-bottom: -13px !important;\r\n    background-color: #5bc0de !important;\r\n}\r\n\r\n", ""]);
 
 
 

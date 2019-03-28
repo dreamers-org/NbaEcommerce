@@ -14,16 +14,16 @@
 
 <div class="row">
     <div class="col-3">
-        <h5><small class="text-muted">Filtra per</small></h5>
-
-        <form action="/" method="post">
-            <div class="form-group ml-3">
-                @foreach (NbaEcommerce.Models.Marchio marchio in ViewBag.marchi)
+        <h4>Filtra per</h4>
+        <h6><small class="text-muted">Categoria</small></h6>
+        <form action="/" method="post" class="ml-5  mt-3">
+            <div class="form-group">
+                @foreach (NbaEcommerce.Models.Categoria categoria in ViewBag.categorie)
                 {
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" id="gridCheck">
                         <label class="form-check-label" for="gridCheck">
-                            @marchio.Descrizione
+                            @categoria.Descrizione
                         </label>
                     </div>
                 }
@@ -32,11 +32,10 @@
     </div>
 
     <div class="col-9">
-
         @foreach (NbaEcommerce.ViewModels.ViewProdottoViewModel prodotto in Model)
         {
             <div class="col-sm-4 col-md-3">
-                <div class="card ml-2" style="height:300px;">
+                <div class="card ml-2" style="height:200px;">
                     <img src="..." class="card-img-top" alt="...">
                     <div class="card-body text-center">
                         <h5 class="card-title">@prodotto.Descrizione</h5>

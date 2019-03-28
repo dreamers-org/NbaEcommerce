@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\js\sitemap.ts" />
     <Content Remove="wwwroot\ts\main.ts" />
   </ItemGroup>
 
@@ -41,6 +42,7 @@
 
 
   <ItemGroup>
+    <TypeScriptCompile Include="wwwroot\ts\sitemap.ts" />
     <TypeScriptCompile Include="wwwroot\ts\main.ts" />
   </ItemGroup>
 
