@@ -46,5 +46,5 @@ $(document).ready(function () {
 
 function attivaMenuItemCorrente(idMenuItem: string) {
     console.log(idMenuItem);
-    $(`#${idMenuItem}`).parent().addClass("nav-item-active");
+    $(`#${idMenuItem}`).addClass("active");
 }

@@ -41,6 +41,6 @@ $(document).ready(function () {
 });
 function attivaMenuItemCorrente(idMenuItem) {
     console.log(idMenuItem);
-    $("#" + idMenuItem).parent().addClass("nav-item-active");
+    $("#" + idMenuItem).addClass("active");
 }
 //# sourceMappingURL=main.js.map

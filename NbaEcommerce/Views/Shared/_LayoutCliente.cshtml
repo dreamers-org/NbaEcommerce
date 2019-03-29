@@ -7,73 +7,54 @@
 
     <script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="~/dist/main.bundle.js"></script>
-    <link href="~/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 </head>
-<body>
+<body class="bg-light">
     <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-primary ">
-            <a class="navbar-brand" href="#">
-                <div class="border border-light rounded" style="padding-top:10%;padding-left:2px;padding-right:2px;"> <h6 class="text-light">NBA</h6></div>
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarColor03">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" id="itemCatalogoCliente" asp-controller="Prodotto" asp-action="IndexCliente">
-                            Catalogo online (cliente)
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-controller="Prodotto" asp-action="Index">
-                            Prodotti
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-controller="Marchio" asp-action="Index">
-                            Marchi
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-controller="Categoria" asp-action="Index">
-                            Categorie
-                        </a>
-                    </li>
-                </ul>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" href="#">
+                    <img src="~/images/logo.png" style="width:50px;height:50px" />
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarColor03">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" id="itemCatalogoCliente" asp-controller="Prodotto" asp-action="IndexCliente">
+                                Catalogo online (cliente)
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Prodotto" asp-action="Index">
+                                Prodotti
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Marchio" asp-action="Index">
+                                Marchi
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Categoria" asp-action="Index">
+                                Categorie
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <form class="form-inline my-2 my-lg-0">
+                    @if (User.IsInRole("Cliente"))
+                    {
+                        <a href="#" class="nav-link text-dark"><i class="fas fa-shopping-cart "></i></a>
+                    }
+                </form>
+                <partial name="_LoginPartial" />
             </div>
-            <form class="form-inline my-2 my-lg-0">
-                @if (User.IsInRole("Cliente"))
-                {
-                    <a href="#" class="nav-link text-white"><i class="fas fa-shopping-cart "></i></a>
-                }
-            </form>
-            <partial name="_LoginPartial" />
-        </nav>
-        <nav class="navbar navbar-expand-lg navbar-light bg-info border-bottom box-shadow" >
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link text-light" asp-controller="Prodotto" asp-action="IndexCliente" asp-route-marchio="Apple">
-                        Apple
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-light" asp-controller="Prodotto" asp-action="IndexCliente" asp-route-marchio="Samsung">
-                        Samsung
-                    </a>
-                </li>
-            </ul>
-            <form class="form-inline my-2 my-lg-0">
-                @if (User.IsInRole("Cliente"))
-                {
-                    <a href="#" class="nav-link text-white"><i class="fas fa-shopping-cart "></i></a>
-                }
-            </form>
         </nav>
     </header>
 
-    <div class="container-fluid mt-3">
+    <div class="container-fluid mt-3 ">
         <partial name="_CookieConsentPartial" />
         <main role="main" class="pb-3">
             @RenderBody()

@@ -2,11 +2,19 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="row">
-    <div class="col-12 justify-content-center">
-        <div class="text-center">
-            <h1 class="display-4">Welcome</h1>
-            <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<style>
+    .card {
+        border: none !important;
+    }
+</style>
+
+
+<div class="row justify-content-center">
+    <div class="col col-md-5">
+        <div class="card">
+            <a asp-controller="Home" class="navbar-brand" asp-action="Index" title="clicca per tornare alla home..">
+                <img src="~/images/logo.jpeg" class="img-fluid d-block mx-auto" style="max-height:400px; max-width:400px;" />
+            </a>
         </div>
     </div>
 </div>

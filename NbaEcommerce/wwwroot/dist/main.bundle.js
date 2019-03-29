@@ -4888,7 +4888,7 @@ $(document).ready(function () {
 });
 function attivaMenuItemCorrente(idMenuItem) {
     console.log(idMenuItem);
-    $("#" + idMenuItem).parent().addClass("nav-item-active");
+    $("#" + idMenuItem).addClass("active");
 }
 
 
@@ -12864,7 +12864,7 @@ if(false) {
 
 exports = module.exports = __webpack_require__(2)(false);
 // Module
-exports.push([module.i, "/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification\\ \r\nfor details on configuring this project to bundle and minify static web assets. */\r\nbody {\r\n    //padding-top: 50px;\r\n    padding-bottom: 20px;\r\n}\r\n\r\n/* Wrapping element */\r\n/* Set some basic padding to keep content from hitting the edges */\r\n.body-content {\r\n    padding-left: 15px;\r\n    padding-right: 15px;\r\n}\r\n\r\n/* Carousel */\r\n.carousel-caption p {\r\n    font-size: 20px;\r\n    line-height: 1.4;\r\n}\r\n\r\n/* Make .svg files in the carousel display properly in older browsers */\r\n.carousel-inner .item img[src$=\".svg\"] {\r\n    width: 100%;\r\n}\r\n\r\n/* QR code generator */\r\n#qrCode {\r\n    margin: 15px;\r\n}\r\n\r\n/* Hide/rearrange for smaller screens */\r\n@media screen and (max-width: 767px) {\r\n    /* Hide captions */\r\n    .carousel-caption {\r\n        display: none;\r\n    }\r\n}\r\n", ""]);
+exports.push([module.i, "/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification\r\nfor details on configuring this project to bundle and minify static web assets. */\r\n\r\na.navbar-brand {\r\n    white-space: normal;\r\n    text-align: center;\r\n    word-break: break-all;\r\n}\r\n\r\n/* Sticky footer styles\r\n-------------------------------------------------- */\r\nhtml {\r\n    font-size: 14px;\r\n}\r\n\r\n@media (min-width: 768px) {\r\n    html {\r\n        font-size: 16px;\r\n    }\r\n}\r\n\r\n.border-top {\r\n    border-top: 1px solid #e5e5e5;\r\n}\r\n\r\n.border-bottom {\r\n    border-bottom: 1px solid #e5e5e5;\r\n}\r\n\r\n.box-shadow {\r\n    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);\r\n}\r\n\r\nbutton.accept-policy {\r\n    font-size: 1rem;\r\n    line-height: inherit;\r\n}\r\n\r\n/* Sticky footer styles\r\n-------------------------------------------------- */\r\nhtml {\r\n    position: relative;\r\n    min-height: 100%;\r\n}\r\n\r\nbody {\r\n    /* Margin bottom by footer height */\r\n    margin-bottom: 60px;\r\n}\r\n\r\n.footer {\r\n    position: absolute;\r\n    bottom: 0;\r\n    width: 100%;\r\n    white-space: nowrap;\r\n    /* Set the fixed height of the footer here */\r\n    height: 60px;\r\n    line-height: 60px; /* Vertically center the text there */\r\n}\r\n", ""]);
 
 
 
@@ -12924,7 +12924,7 @@ if(false) {
 
 exports = module.exports = __webpack_require__(2)(false);
 // Module
-exports.push([module.i, ".nav-item-active {\r\n    margin-bottom: -13px !important;\r\n    background-color: #5bc0de !important;\r\n}\r\n\r\n", ""]);
+exports.push([module.i, "/*.nav-item-active {\r\n    margin-bottom: -13px !important;\r\n    background-color: #5bc0de !important;\r\n}*/\r\n\r\n", ""]);
 
 
 
