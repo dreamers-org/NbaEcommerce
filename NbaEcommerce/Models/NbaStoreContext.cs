@@ -20,6 +20,7 @@ namespace NbaEcommerce.Models
         public virtual DbSet<Immagine> Immagine { get; set; }
         public virtual DbSet<Marchio> Marchio { get; set; }
         public virtual DbSet<Prodotto> Prodotto { get; set; }
+        public virtual DbSet<Dispositivo> Dispositivo { get; set; }
 
         public virtual DbQuery<ViewProdottoViewModel> ViewProdotto { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -86,6 +87,17 @@ namespace NbaEcommerce.Models
                     .HasForeignKey(d => d.IdMarchio)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Prodotto_Marchio1");
+            });
+
+            modelBuilder.Entity<Dispositivo>(entity =>
+            {
+                entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
+
+                entity.HasOne(d => d.IdMarchioNavigation)
+                .WithMany(d => d.Dispositivo)
+                .HasForeignKey(d => d.IdMarchio)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Dispositivo_Marchio");
             });
         }
     }

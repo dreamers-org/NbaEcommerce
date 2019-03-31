@@ -8,6 +8,8 @@ namespace NbaEcommerce.Models
         public Marchio()
         {
             Prodotto = new HashSet<Prodotto>();
+            Dispositivo = new HashSet<Dispositivo>();
+
         }
 
         public Guid Id { get; set; }
@@ -15,5 +17,7 @@ namespace NbaEcommerce.Models
         public bool Attivo { get; set; }
 
         public ICollection<Prodotto> Prodotto { get; set; }
+
+        public ICollection<Dispositivo> Dispositivo { get; set; }
     }
 }

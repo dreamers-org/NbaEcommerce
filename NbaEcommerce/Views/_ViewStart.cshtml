@@ -1,3 +1,19 @@
-﻿@{
-    Layout = "_LayoutCliente";
+﻿@if (!(User.Identity.IsAuthenticated))
+{
+
+     Layout = "_LayoutCliente";
+}
+else
+{
+    @if (User.IsInRole("Titolare") || User.IsInRole("Admin"))
+    {
+        Layout = "_Layout";
+    }
+    else
+    {
+//        Layout = "_LayoutCliente";
+
+        Layout = "_Layout";
+
+    }
 }

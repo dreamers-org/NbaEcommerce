@@ -1,55 +1,71 @@
 ﻿@model NbaEcommerce.Models.Prodotto
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Dettaglio prodotto";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<div class="row mt-2">
+    <div class="col-6">
+        <h2>@ViewData["Title"]</h2>
+    </div>
+</div>
 
-<div>
-    <h4>Prodotto</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.PrezzoVendita)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.PrezzoVendita)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.PrezzoAcquisto)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.PrezzoAcquisto)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Attivo)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Attivo)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Quantità)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Quantità)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.IdCategoriaNavigation)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.IdCategoriaNavigation.Descrizione)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.IdMarchioNavigation)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.IdMarchioNavigation.Descrizione)
-        </dd>
-    </dl>
+<hr />
+
+<div class="row justify-content-center">
+    <div class="col-md-4">
+        <div class="card border-left-primary shadow h-100">
+            <div class="card-body">
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.PrezzoVendita)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.PrezzoVendita)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.PrezzoAcquisto)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.PrezzoAcquisto)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Attivo)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Attivo)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Quantità)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Quantità)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.IdCategoriaNavigation)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.IdCategoriaNavigation.Descrizione)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.IdMarchioNavigation)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.IdMarchioNavigation.Descrizione)
+                    </dd>
+                </dl>
+                <div class="row">
+                    <div class="col-8">
+                        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-primary btn-block">Modifica</a>
+                    </div>
+                    <div class="col-4">
+                        <a asp-action="Index" class="btn btn-outline-danger btn-block ">Annulla</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+
+
