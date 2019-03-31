@@ -9,7 +9,7 @@ namespace NbaEcommerce.Areas.Identity.Data
 {
     public class CustomClaimsPrincipalFactory : UserClaimsPrincipalFactory<NbaEcommerceUser>
     {
-        public CustomClaimsPrincipalFactory(UserManager<NbaEcommerceUser> userManager,
+        public CustomClaimsPrincipalFactory(UserManager<NbaEcommerceUser> userManager, RoleManager<IdentityRole> roleManager,
             IOptions<IdentityOptions> optionsAccessor) : base(userManager, optionsAccessor)
         { }
 
@@ -22,6 +22,7 @@ namespace NbaEcommerce.Areas.Identity.Data
                 if (!string.IsNullOrWhiteSpace(user.UserName))
                 {
                     ((ClaimsIdentity)principal.Identity).AddClaims(new[] {
+                        new Claim(ClaimTypes.Role, "Cliente"),
                           new Claim("NomeAzienda", user.NomeAzienda),
                           new Claim("PersonaRiferimento", user.PersonaRiferimento),
                           new Claim("Telefono", user.Telefono),
