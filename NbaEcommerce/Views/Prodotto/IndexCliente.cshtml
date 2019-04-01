@@ -17,38 +17,41 @@
         <div class="card border-left-primary shadow h-100">
             <div class="card-body">
                 <h4 class="mb-3">Filtra per</h4>
-                <h6>
-                    <small class="text-muted">Categoria</small>
-                </h6>
-                <hr />
-                <form action="/" method="post" class="ml-5  mt-3">
-                    <div class="form-group">
+
+             
+                <form action="IndexCliente" method="post" class="mt-3" id="test">
+                    <h6><small class="text-muted">Categoria</small></h6>
+                    <hr />
+                    <div class="form-group ml-4">
                         @foreach (NbaEcommerce.Models.Categoria categoria in ViewBag.categorie)
                         {
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="gridCheck">
+                                <input class="form-check-input gridCheck" type="checkbox" id="gridCheck" @(((String[])ViewBag.categorieSelezionate).Contains(categoria.Id.ToString()) ? "checked" : "") data-id="@categoria.Id" onchange="cambiaListaCategorie()">
                                 <label class="form-check-label" for="gridCheck">
                                     @categoria.Descrizione
                                 </label>
                             </div>
                         }
                     </div>
-                </form>
 
-                <h6><small class="text-muted">Marchio</small></h6>
-                <hr />
-                <form action="/" method="post" class="ml-5  mt-3">
-                    <div class="form-group">
+                    <h6><small class="text-muted">Marchio</small></h6>
+                    <hr />
+                    <div class="form-group ml-4">
                         @foreach (NbaEcommerce.Models.Marchio marchio in ViewBag.marchi)
                         {
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="gridCheck">
+                                <input class="form-check-input gridCheck2" type="checkbox" id="gridCheck2" @(((String[])ViewBag.marchiSelezionati).Contains(marchio.Id.ToString()) ? "checked" : "") data-id="@marchio.Id" onchange="cambiaListaMarchi()">
                                 <label class="form-check-label" for="gridCheck">
                                     @marchio.Descrizione
                                 </label>
                             </div>
                         }
                     </div>
+
+                    <input type="text" id="listaMarchi" name="listaMarchi" value="" style="display:none" />
+                    <input type="text" id="listaCategorie" name="listaCategorie" value="" style="display:none" />
+
+                    <input type="submit" value="Salva" style="display:none" />
                 </form>
             </div>
         </div>
@@ -57,9 +60,13 @@
     <div class="col-9">
         @foreach (NbaEcommerce.ViewModels.ViewProdottoViewModel prodotto in Model)
         {
+            var base64 = Convert.ToBase64String(prodotto.Immagine);
+            var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+
             <div class="col-sm-4 col-md-3">
                 <div class="card ml-2">
-                    <img src="~/images/repuesto-pantalla-completa-iphone-x-1.jpg" class="card-img-top" />
+
+                    <img src="@imgSrc" class="card-img-top" />
                     <div class="card-body text-center">
                         <h6 class="card-title">@prodotto.Titolo</h6>
                         <a asp-action="Details" asp-route-id="@prodotto.Id" title="Dettaglio" class="btn btn-sm btn-outline-primary">Maggiori informazioni</a>
@@ -69,6 +76,36 @@
         }
     </div>
 </div>
+
+<script type="text/javascript">
+    function cambiaListaMarchi() {
+        let valori = "";
+
+        $(".gridCheck2").each(function () {
+            if (this.checked) {
+                valori += ";" + this.dataset.id;
+            }
+        });
+
+        $("#listaMarchi").val(valori);
+
+        $('#test').submit();
+    }
+
+    function cambiaListaCategorie() {
+        let valori = "";
+
+        $(".gridCheck").each(function () {
+            if (this.checked) {
+                valori += ";" + this.dataset.id;
+            }
+        });
+
+        $("#listaCategorie").val(valori);
+
+        $('#test').submit();
+    }
+</script>
 
 
 

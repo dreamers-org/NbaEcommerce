@@ -26,5 +26,8 @@ namespace NbaEcommerce.ViewModels
         public int Quantità { get; set; }
         public string Marchio { get; set; }
         public string Categoria { get; set; }
+
+        public byte[] Immagine { get; set; }
+
     }
 }
