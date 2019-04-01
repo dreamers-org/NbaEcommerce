@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace NbaEcommerce.Areas.Identity.Data
 {
-    public class CustomClaimsPrincipalFactory : UserClaimsPrincipalFactory<NbaEcommerceUser>
+    public class CustomClaimsPrincipalFactory : UserClaimsPrincipalFactory<NbaEcommerceUser,IdentityRole>
     {
-        public CustomClaimsPrincipalFactory(UserManager<NbaEcommerceUser> userManager,
-            IOptions<IdentityOptions> optionsAccessor) : base(userManager, optionsAccessor)
+        public CustomClaimsPrincipalFactory(UserManager<NbaEcommerceUser> userManager, RoleManager<IdentityRole> roleManager,
+            IOptions<IdentityOptions> optionsAccessor) : base(userManager, roleManager, optionsAccessor)
         { }
 
         public async override Task<ClaimsPrincipal> CreateAsync(NbaEcommerceUser user)
