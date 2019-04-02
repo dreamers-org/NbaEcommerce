@@ -32,8 +32,8 @@ $(document).ready(function () {
                         arrayPageModules[i].function();
                     }
 
-                    console.log("attivatore:" + arrayPageModules[i].menuItem)
-                    attivaMenuItemCorrente(arrayPageModules[i].menuItem);
+                    //console.log("attivatore:" + arrayPageModules[i].menuItem)
+                    //attivaMenuItemCorrente(arrayPageModules[i].menuItem);
                 }
             }
         //}

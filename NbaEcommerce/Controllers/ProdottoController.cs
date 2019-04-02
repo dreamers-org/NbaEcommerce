@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using NbaEcommerce.Models;
 using NbaEcommerce.ViewModels;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace NbaEcommerce.Controllers
 {
@@ -35,10 +35,12 @@ namespace NbaEcommerce.Controllers
         {
             ViewData["categorie"] = await _context.Categoria.ToListAsync();
             ViewData["marchi"] = await _context.Marchio.ToListAsync();
+            ViewData["dispositivi"] = await _context.Dispositivo.ToListAsync();
 
 
             ViewData["marchiSelezionati"] = new String[0];
             ViewData["categorieSelezionate"] = new String[0];
+            ViewData["dispositiviSelezionati"] = new String[0];
 
             var nbaStoreContext = await _context.ViewProdotto.ToListAsync();
             return View(nbaStoreContext);
@@ -46,13 +48,14 @@ namespace NbaEcommerce.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> IndexCliente(String listaMarchi, String listaCategorie)
+        public async Task<IActionResult> IndexCliente(String listaMarchi, String listaCategorie, string listaDispositivi)
         {
             ViewData["categorie"] = await _context.Categoria.ToListAsync();
             ViewData["marchi"] = await _context.Marchio.ToListAsync();
 
             String[] arrayMarchiSelezionati = new string[0];
             String[] arrayCategorieSelezionati = new string[0];
+            String[] arrayDispositiviSelezionati = new string[0];
 
             List<ViewProdottoViewModel> nbaStoreContext = new List<ViewProdottoViewModel>();
 
@@ -67,10 +70,22 @@ namespace NbaEcommerce.Controllers
                 arrayCategorieSelezionati = listaCategorie?.Split(";");
             }
 
-            nbaStoreContext = await _context.ViewProdotto.Where(x => ((arrayCategorieSelezionati.Contains(x.IdCategoria.ToString())) && (arrayMarchiSelezionati.Contains(x.IdMarchio.ToString())))).ToListAsync();
+            if (listaDispositivi != null)
+            {
+                arrayDispositiviSelezionati = listaDispositivi?.Split(";");
+                
+            }
+
+            ViewData["dispositivi"] = await _context.Dispositivo.Where(x => arrayMarchiSelezionati.Contains(x.IdMarchio.ToString())).ToListAsync();
+
+            //nbaStoreContext = await _context.ViewProdotto.Where(x => (arrayCategorieSelezionati.Length == 0 | (arrayCategorieSelezionati.Contains(x.IdCategoria.ToString())) & (arrayMarchiSelezionati.Length == 0 | arrayMarchiSelezionati.Contains(x.IdMarchio.ToString())))).ToListAsync();
+
+            nbaStoreContext = await _context.ViewProdotto.Where(x => (arrayCategorieSelezionati.Length == 0 | arrayCategorieSelezionati.Contains(x.IdCategoria.ToString())) & (arrayMarchiSelezionati.Length == 0 | arrayMarchiSelezionati.Contains(x.IdMarchio.ToString()))).ToListAsync();
+
 
             ViewData["marchiSelezionati"] = arrayMarchiSelezionati;
             ViewData["categorieSelezionate"] = arrayCategorieSelezionati;
+            ViewData["dispositiviSelezionati"] = arrayDispositiviSelezionati;
 
             return View(nbaStoreContext);
         }
@@ -229,6 +244,23 @@ namespace NbaEcommerce.Controllers
         private bool ProdottoExists(Guid id)
         {
             return _context.Prodotto.Any(e => e.Id == id);
+        }
+
+
+        public IActionResult GetDispositiviByMarchio(string marchiSelezionati)
+        {
+            JsonResult dispositivi = null;
+
+            if (!String.IsNullOrEmpty(marchiSelezionati))
+            {
+                String[] arrMarchi = marchiSelezionati.Split(";");
+
+                var listaColori = _context.Dispositivo.Where(x => arrMarchi.Contains(x.IdMarchio.ToString())).Select(x => new { Id = x.Id, Descrizione = x.Descrizione }).ToList();
+
+                dispositivi = Json(listaColori);
+            }
+
+            return dispositivi;
         }
     }
 }

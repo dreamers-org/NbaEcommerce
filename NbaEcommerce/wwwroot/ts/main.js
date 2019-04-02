@@ -27,8 +27,8 @@ $(document).ready(function () {
                 if (sitemap_1.arrayPageModules[i].function) {
                     sitemap_1.arrayPageModules[i].function();
                 }
-                console.log("attivatore:" + sitemap_1.arrayPageModules[i].menuItem);
-                attivaMenuItemCorrente(sitemap_1.arrayPageModules[i].menuItem);
+                //console.log("attivatore:" + arrayPageModules[i].menuItem)
+                //attivaMenuItemCorrente(arrayPageModules[i].menuItem);
             }
         }
         //}

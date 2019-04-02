@@ -1,7 +1,4 @@
-﻿//import { attivatorePaginaCreate } from "./ordinecliente-create";
-//import { attivatorePaginaCreateArticolo } from "./articolo-create";
-//import { attivatorePaginaIndexPackingList } from "./packinglist-index";
-//import { attivatorePaginaOrdineClienteRiepilogo } from "./ordinecliente-riepilogo"
+﻿import { attivatorePaginaIndexCliente } from "./index-cliente";
 
 export interface pageModule {
     page?: string;
@@ -12,26 +9,8 @@ export interface pageModule {
 export var arrayPageModules: pageModule[] = [
     {
         page: "/Prodotto/IndexCliente",
-        //function: function (destination, template) { attivatorePaginaCreate() },
-        menuItem: "itemCatalogoCliente"
+        function: function (destination, template) { attivatorePaginaIndexCliente() }
     }
-    //,
-    //{
-    //    page: "/OrdineCliente/Riepilogo",
-    //    function: function (destination, template) { attivatorePaginaOrdineClienteRiepilogo() },
-    //    menuItem: "navbarDropdown"
-    //},
-    //{
-    //    page: "/Articolo/Create",
-    //    function: function (destination, template) { attivatorePaginaCreateArticolo() },
-    //    menuItem: "navbarDropdown"
-    //},
-    //{
-    //    page: "/PackingList/Index",
-    //    function: function (destination, template) { attivatorePaginaIndexPackingList() },
-    //    menuItem: "navbarDropdown"
-    //}
-
 ];
 
 

@@ -257,7 +257,7 @@ var singleton = null;
 var	singletonCounter = 0;
 var	stylesInsertedAtTop = [];
 
-var	fixUrls = __webpack_require__(16);
+var	fixUrls = __webpack_require__(17);
 
 module.exports = function(list, options) {
 	if (typeof DEBUG !== "undefined" && DEBUG) {
@@ -4857,9 +4857,9 @@ __webpack_require__(12);
 //import librerie interne
 var sitemap_1 = __webpack_require__(13);
 //import dei css
-__webpack_require__(14);
-__webpack_require__(17);
-__webpack_require__(19);
+__webpack_require__(15);
+__webpack_require__(18);
+__webpack_require__(20);
 $(document).ready(function () {
     try {
         //ottengo l'url corrente.
@@ -4874,8 +4874,8 @@ $(document).ready(function () {
                 if (sitemap_1.arrayPageModules[i].function) {
                     sitemap_1.arrayPageModules[i].function();
                 }
-                console.log("attivatore:" + sitemap_1.arrayPageModules[i].menuItem);
-                attivaMenuItemCorrente(sitemap_1.arrayPageModules[i].menuItem);
+                //console.log("attivatore:" + arrayPageModules[i].menuItem)
+                //attivaMenuItemCorrente(arrayPageModules[i].menuItem);
             }
         }
         //}
@@ -12623,33 +12623,13 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 "use strict";
 
-//import { attivatorePaginaCreate } from "./ordinecliente-create";
-//import { attivatorePaginaCreateArticolo } from "./articolo-create";
-//import { attivatorePaginaIndexPackingList } from "./packinglist-index";
-//import { attivatorePaginaOrdineClienteRiepilogo } from "./ordinecliente-riepilogo"
 Object.defineProperty(exports, "__esModule", { value: true });
+var index_cliente_1 = __webpack_require__(14);
 exports.arrayPageModules = [
     {
         page: "/Prodotto/IndexCliente",
-        //function: function (destination, template) { attivatorePaginaCreate() },
-        menuItem: "itemCatalogoCliente"
+        function: function (destination, template) { index_cliente_1.attivatorePaginaIndexCliente(); }
     }
-    //,
-    //{
-    //    page: "/OrdineCliente/Riepilogo",
-    //    function: function (destination, template) { attivatorePaginaOrdineClienteRiepilogo() },
-    //    menuItem: "navbarDropdown"
-    //},
-    //{
-    //    page: "/Articolo/Create",
-    //    function: function (destination, template) { attivatorePaginaCreateArticolo() },
-    //    menuItem: "navbarDropdown"
-    //},
-    //{
-    //    page: "/PackingList/Index",
-    //    function: function (destination, template) { attivatorePaginaIndexPackingList() },
-    //    menuItem: "navbarDropdown"
-    //}
 ];
 
 
@@ -12657,8 +12637,56 @@ exports.arrayPageModules = [
 /* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
+"use strict";
 
-var content = __webpack_require__(15);
+Object.defineProperty(exports, "__esModule", { value: true });
+function attivatorePaginaIndexCliente() {
+    window["cambiaListaCategorie"] = cambiaListaCategorie;
+    window["cambiaListaMarchi"] = cambiaListaMarchi;
+}
+exports.attivatorePaginaIndexCliente = attivatorePaginaIndexCliente;
+function cambiaListaMarchi() {
+    var valori = "";
+    $(".gridCheck2").each(function () {
+        var chk = this;
+        if (chk.checked) {
+            valori += ";" + this.dataset.id;
+        }
+    });
+    //$.ajax({
+    //    type: "POST",
+    //    url: "/Prodotto/GetDispositiviByMarchio",
+    //    data: { marchiSelezionati: valori },
+    //    success: function (data) {
+    //        for (var i = 0; i < data.length; i++) {
+    //            console.log(data[i].id);
+    //        }
+    //    },
+    //    error: function () {
+    //    }
+    //});
+    $("#listaMarchi").val(valori);
+    $('#test').submit();
+}
+function cambiaListaCategorie() {
+    var valori = "";
+    $(".gridCheck").each(function () {
+        var chk = this;
+        if (chk.checked) {
+            valori += ";" + this.dataset.id;
+        }
+    });
+    $("#listaCategorie").val(valori);
+    $('#test').submit();
+}
+
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(16);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -12704,7 +12732,7 @@ if(false) {
 }
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
@@ -12714,7 +12742,7 @@ exports.push([module.i, "/*!\n * Bootstrap v4.3.1 (https://getbootstrap.com/)\n 
 
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports) {
 
 
@@ -12809,11 +12837,11 @@ module.exports = function (css) {
 
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(18);
+var content = __webpack_require__(19);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -12859,7 +12887,7 @@ if(false) {
 }
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
@@ -12869,11 +12897,11 @@ exports.push([module.i, "/* Please see documentation at https://docs.microsoft.c
 
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(20);
+var content = __webpack_require__(21);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -12919,7 +12947,7 @@ if(false) {
 }
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
