@@ -84,13 +84,63 @@
             var base64 = Convert.ToBase64String(prodotto.Immagine);
             var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
 
-            <div class="card ml-2 mb-3" style="width: 13rem;height:300px;">
+            <div class="card ml-2 mb-3 shadow" style="width: 13rem;height:300px;">
                 <div style="height:200px">
-                    <img src="@imgSrc" class="card-img-top" />
+                    <img src="@imgSrc" class="card-img-top mt-3 mb-3" />
                 </div>
                 <div class="card-body text-center">
                     <h6 class="card-title">@prodotto.Titolo</h6>
-                    <a title="Dettaglio" class="btn btn-sm btn-outline-primary">Maggiori informazioni</a>
+                    <a title="Dettaglio" class="btn btn-outline-primary text-primary btn-sm" data-toggle="modal" data-target="@string.Format("#exampleModalCenter-{0}",prodotto.Id)">Maggiori informazioni</a>
+                </div>
+            </div>
+
+
+            <div class="modal fade" id="@string.Format("exampleModalCenter-{0}",prodotto.Id)" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalCenterTitle">@prodotto.Titolo</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                                        <div class="carousel-inner">
+                                            <div class="carousel-item active">
+                                                <img src="@imgSrc" class="d-block w-100" />
+                                            </div>
+                                        </div>
+                                        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            <span class="sr-only">Previous</span>
+                                        </a>
+                                        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                            <span class="sr-only">Next</span>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-12 border-top ">
+                                    <dl class="dl-horizontal mt-3">
+                                        <dt>
+                                            @Html.DisplayNameFor(model => prodotto.Descrizione)
+                                        </dt>
+                                        <dd>
+                                            @Html.DisplayFor(model => prodotto.Descrizione)
+                                        </dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <h3><span id="badgePrezzo" class="badge badge-info">@prodotto.PrezzoVendita €</span></h3>
+                            <input type="number" class="form-control col-2" value="1" oninput="document.getElementById('badgePrezzo').innerHTML = (@prodotto.PrezzoVendita * this.value) + '€';" />
+                            <button type="button" class="btn btn-primary"><i class="fas fa-shopping-cart"></i>&nbsp; Aggiungi al carrello</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         }
@@ -98,7 +148,7 @@
 </div>
 
 <script type="text/javascript">
-   
+
 </script>
 
 
