@@ -66,7 +66,7 @@
                     <hr />
                     <div class="form-group text-center">
                         <label id="lblRange" for="formControlRange">100€</label>
-                        <input type="range" min="0" max="200" value="100" class="form-control-range" id="formControlRange" oninput="document.getElementById('lblRange').innerHTML = this.value + '€';">
+                        <input name="maxPrezzo" type="range" min="0" max="200" value="100" class="form-control-range" id="formControlRange" oninput="document.getElementById('lblRange').innerHTML = this.value + '€';">
                     </div>
 
                     <input type="text" id="listaMarchi" name="listaMarchi" value="@(String.Join(";",(String[])ViewBag.marchiSelezionati))" style="display:none" />
@@ -84,16 +84,19 @@
             var base64 = Convert.ToBase64String(prodotto.Immagine);
             var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
 
-            <div class="card ml-2 mb-3 shadow" style="width: 13rem;height:300px;">
-                <div style="height:200px">
-                    <img src="@imgSrc" class="card-img-top mt-3 mb-3" />
+            <div class="card ml-2 mb-3 shadow" style="width: 13rem;max-height:400px">
+                <div style="height:200px;">
+                    <img src="@imgSrc" style="cursor:pointer;" class="img-fluid" onclick="@string.Format("$('#exampleModalCenter-{0}').modal('show');",prodotto.Id)" />
                 </div>
-                <div class="card-body text-center">
+                <div  class="card-body text-center" style="cursor:pointer;" onclick="@string.Format("$('#exampleModalCenter-{0}').modal('show');",prodotto.Id)">
                     <h6 class="card-title">@prodotto.Titolo</h6>
-                    <a title="Dettaglio" class="btn btn-outline-primary text-primary btn-sm" data-toggle="modal" data-target="@string.Format("#exampleModalCenter-{0}",prodotto.Id)">Maggiori informazioni</a>
+
+                    <h5><strong class="ml-2"> @prodotto.PrezzoVendita €</strong></h5>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-xs btn-primary btn-block"><i class="fas fa-shopping-cart"></i>&nbsp;Acquista</button>
                 </div>
             </div>
-
 
             <div class="modal fade" id="@string.Format("exampleModalCenter-{0}",prodotto.Id)" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
@@ -135,11 +138,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="modal-footer">
-                            <h3><span id="badgePrezzo" class="badge badge-info">@prodotto.PrezzoVendita €</span></h3>
-                            <input type="number" class="form-control col-2" value="1" oninput="document.getElementById('badgePrezzo').innerHTML = (@prodotto.PrezzoVendita * this.value) + '€';" />
-                            <button type="button" class="btn btn-primary"><i class="fas fa-shopping-cart"></i>&nbsp; Aggiungi al carrello</button>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -147,9 +145,6 @@
     </div>
 </div>
 
-<script type="text/javascript">
-
-</script>
 
 
 

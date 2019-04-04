@@ -37,7 +37,6 @@ namespace NbaEcommerce.Controllers
             ViewData["marchi"] = await _context.Marchio.ToListAsync();
             ViewData["dispositivi"] = await _context.Dispositivo.ToListAsync();
 
-
             ViewData["marchiSelezionati"] = new String[0];
             ViewData["categorieSelezionate"] = new String[0];
             ViewData["dispositiviSelezionati"] = new String[0];
@@ -48,10 +47,11 @@ namespace NbaEcommerce.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> IndexCliente(String listaMarchi, String listaCategorie, string listaDispositivi)
+        public async Task<IActionResult> IndexCliente(String listaMarchi, String listaCategorie, string listaDispositivi, int maxPrezzo)
         {
             ViewData["categorie"] = await _context.Categoria.ToListAsync();
             ViewData["marchi"] = await _context.Marchio.ToListAsync();
+            ViewData["dispositivi"] = await _context.Dispositivo.ToListAsync();
 
             String[] arrayMarchiSelezionati = new string[0];
             String[] arrayCategorieSelezionati = new string[0];
@@ -62,26 +62,21 @@ namespace NbaEcommerce.Controllers
             if (listaMarchi != null)
             {
                 arrayMarchiSelezionati = listaMarchi?.Split(";");
-
+                ViewData["dispositivi"] = await _context.Dispositivo.Where(x => arrayMarchiSelezionati.Contains(x.IdMarchio.ToString())).ToListAsync();
             }
 
             if (listaCategorie != null)
             {
                 arrayCategorieSelezionati = listaCategorie?.Split(";");
+                
             }
 
             if (listaDispositivi != null)
             {
                 arrayDispositiviSelezionati = listaDispositivi?.Split(";");
-                
             }
 
-            ViewData["dispositivi"] = await _context.Dispositivo.Where(x => arrayMarchiSelezionati.Contains(x.IdMarchio.ToString())).ToListAsync();
-
-            //nbaStoreContext = await _context.ViewProdotto.Where(x => (arrayCategorieSelezionati.Length == 0 | (arrayCategorieSelezionati.Contains(x.IdCategoria.ToString())) & (arrayMarchiSelezionati.Length == 0 | arrayMarchiSelezionati.Contains(x.IdMarchio.ToString())))).ToListAsync();
-
             nbaStoreContext = await _context.ViewProdotto.Where(x => (arrayCategorieSelezionati.Length == 0 | arrayCategorieSelezionati.Contains(x.IdCategoria.ToString())) & (arrayMarchiSelezionati.Length == 0 | arrayMarchiSelezionati.Contains(x.IdMarchio.ToString()))).ToListAsync();
-
 
             ViewData["marchiSelezionati"] = arrayMarchiSelezionati;
             ViewData["categorieSelezionate"] = arrayCategorieSelezionati;
