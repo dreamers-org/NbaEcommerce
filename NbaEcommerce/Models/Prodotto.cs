@@ -14,6 +14,8 @@ namespace NbaEcommerce.Models
         public Guid Id { get; set; }
         public Guid IdMarchio { get; set; }
         public Guid IdCategoria { get; set; }
+        public Guid IdDispositivo { get; set; }
+
         public string Titolo { get; set; }
 
         public string Descrizione { get; set; }
@@ -27,6 +29,7 @@ namespace NbaEcommerce.Models
         public int Quantità { get; set; }
         public Categoria IdCategoriaNavigation { get; set; }
         public Marchio IdMarchioNavigation { get; set; }
+        public Dispositivo IdDispositivoNavigation { get; set; }
         public ICollection<Immagine> Immagine { get; set; }
     }
 }

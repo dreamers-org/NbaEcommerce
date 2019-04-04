@@ -14,7 +14,7 @@
 <hr />
 
 <div class="row justify-content-center">
-    <div class="col-md-4">
+    <div class="col-xs-12 col-sm-8 col-md-6">
         <div class="card border-left-primary shadow h-100">
             <div class="card-body">
                 <form asp-action="Edit">
@@ -36,6 +36,11 @@
                         <span asp-validation-for="IdMarchio" class="text-danger"></span>
                     </div>
                     <div class="form-group">
+                        <label asp-for="IdDispositivo" class="control-label"></label>
+                        <select asp-for="IdDispositivo" class="form-control" asp-items="ViewBag.IdDispositivo"></select>
+                        <span asp-validation-for="IdDispositivo" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
                         <label asp-for="IdCategoria" class="control-label"></label>
                         <select asp-for="IdCategoria" class="form-control" asp-items="ViewBag.IdCategoria"></select>
                         <span asp-validation-for="IdCategoria" class="text-danger"></span>
@@ -50,6 +55,19 @@
                         <input asp-for="PrezzoAcquisto" class="form-control" />
                         <span asp-validation-for="PrezzoAcquisto" class="text-danger"></span>
                     </div>
+
+                    <div class="form-group">
+                        <label asp-for="Quantità" class="control-label"></label>
+                        <input asp-for="Quantità" class="form-control" />
+                        <span asp-validation-for="Quantità" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label">Immagini</label>
+                        <p>Seleziona le immagini del prodotto:</p>
+                        <input type="file" name="immagini" multiple />
+                    </div>
+
                     <div class="form-group">
                         <div class="checkbox">
                             <label>
@@ -57,11 +75,7 @@
                             </label>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label asp-for="Quantità" class="control-label"></label>
-                        <input asp-for="Quantità" class="form-control" />
-                        <span asp-validation-for="Quantità" class="text-danger"></span>
-                    </div>
+                    
                     <div class="form-group">
                         <div class="row">
                             <div class="col-8">

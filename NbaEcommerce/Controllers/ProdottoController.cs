@@ -111,6 +111,8 @@ namespace NbaEcommerce.Controllers
         {
             ViewData["IdCategoria"] = new SelectList(_context.Categoria, "Id", "Descrizione");
             ViewData["IdMarchio"] = new SelectList(_context.Marchio, "Id", "Descrizione");
+            ViewData["IdDispositivo"] = new SelectList(_context.Dispositivo, "Id", "Descrizione");
+
             return View();
         }
 
@@ -119,7 +121,7 @@ namespace NbaEcommerce.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,IdMarchio,IdCategoria,Titolo,Descrizione,PrezzoVendita,PrezzoAcquisto,Attivo,Quantità")] Prodotto prodotto, List<IFormFile> immagini)
+        public async Task<IActionResult> Create([Bind("Id,IdMarchio,IdCategoria,IdDispositivo,Titolo,Descrizione,PrezzoVendita,PrezzoAcquisto,Attivo,Quantità")] Prodotto prodotto, List<IFormFile> immagini)
         {
             if (ModelState.IsValid)
             {
@@ -146,6 +148,7 @@ namespace NbaEcommerce.Controllers
 
             ViewData["IdCategoria"] = new SelectList(_context.Categoria, "Id", "Descrizione", prodotto.IdCategoria);
             ViewData["IdMarchio"] = new SelectList(_context.Marchio, "Id", "Descrizione", prodotto.IdMarchio);
+            ViewData["IdDispositivo"] = new SelectList(_context.Dispositivo, "Id", "Descrizione", prodotto.IdDispositivo);
 
             return View(prodotto);
         }
@@ -165,6 +168,8 @@ namespace NbaEcommerce.Controllers
             }
             ViewData["IdCategoria"] = new SelectList(_context.Categoria, "Id", "Descrizione", prodotto.IdCategoria);
             ViewData["IdMarchio"] = new SelectList(_context.Marchio, "Id", "Descrizione", prodotto.IdMarchio);
+            ViewData["IdDispositivo"] = new SelectList(_context.Dispositivo, "Id", "Descrizione", prodotto.IdDispositivo);
+
             return View(prodotto);
         }
 
@@ -173,7 +178,7 @@ namespace NbaEcommerce.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,IdMarchio,IdCategoria,Titolo,Descrizione,PrezzoVendita,PrezzoAcquisto,Attivo,Quantità")] Prodotto prodotto)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Id,IdMarchio,IdCategoria,IdDispositivo,Titolo,Descrizione,PrezzoVendita,PrezzoAcquisto,Attivo,Quantità")] Prodotto prodotto,List<IFormFile> immagini)
         {
             if (id != prodotto.Id)
             {
@@ -184,8 +189,31 @@ namespace NbaEcommerce.Controllers
             {
                 try
                 {
+                    //rimuovo tutte le immagini
+                    List<Immagine> listaImmaginiAttuali = await _context.Immagine.Where(x => x.IdProdotto == prodotto.Id).ToListAsync();
+                    foreach (var item in listaImmaginiAttuali)
+                    {
+                        _context.Immagine.Remove(item);
+                        await _context.SaveChangesAsync();
+                    }
+
+                    //Modifico il prodotto
                     _context.Update(prodotto);
                     await _context.SaveChangesAsync();
+
+                    //Inserisco le immagini
+                    var filePath = Path.GetTempFileName();
+
+                    foreach (IFormFile formFile in immagini)
+                    {
+                        using (var memoryStream = new MemoryStream())
+                        {
+                            await formFile.CopyToAsync(memoryStream);
+                            Immagine img = new Immagine { Id = Guid.NewGuid(), IdProdotto = prodotto.Id, Data = memoryStream.ToArray() };
+                            _context.Immagine.Add(img);
+                            await _context.SaveChangesAsync();
+                        }
+                    }
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -202,6 +230,8 @@ namespace NbaEcommerce.Controllers
             }
             ViewData["IdCategoria"] = new SelectList(_context.Categoria, "Id", "Descrizione", prodotto.IdCategoria);
             ViewData["IdMarchio"] = new SelectList(_context.Marchio, "Id", "Descrizione", prodotto.IdMarchio);
+            ViewData["IdDispositivo"] = new SelectList(_context.Dispositivo, "Id", "Descrizione", prodotto.IdDispositivo);
+
             return View(prodotto);
         }
 

@@ -14,6 +14,7 @@ namespace NbaEcommerce.ViewModels
         public Guid IdMarchio { get; set; }
         public Guid IdCategoria { get; set; }
         public string Titolo { get; set; }
+        public string Dispositivo { get; set; }
 
         public string Descrizione { get; set; }
 

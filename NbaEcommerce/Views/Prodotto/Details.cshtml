@@ -37,8 +37,11 @@
                         @Html.DisplayFor(model => model.Attivo)
                     </dd>
                     <dt>
-                        @Html.DisplayNameFor(model => model.Quantità)
+                        @Html.DisplayNameFor(model => model.IdDispositivoNavigation)
                     </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.IdDispositivoNavigation.Descrizione)
+                    </dd>
                     <dd>
                         @Html.DisplayFor(model => model.Quantità)
                     </dd>

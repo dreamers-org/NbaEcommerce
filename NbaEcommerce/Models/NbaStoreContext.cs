@@ -87,6 +87,12 @@ namespace NbaEcommerce.Models
                     .HasForeignKey(d => d.IdMarchio)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Prodotto_Marchio1");
+
+                entity.HasOne(d => d.IdDispositivoNavigation)
+                 .WithMany(p => p.Prodotto)
+                 .HasForeignKey(d => d.IdDispositivo)
+                 .OnDelete(DeleteBehavior.ClientSetNull)
+                 .HasConstraintName("FK_Prodotto_Dispositivo");
             });
 
             modelBuilder.Entity<Dispositivo>(entity =>

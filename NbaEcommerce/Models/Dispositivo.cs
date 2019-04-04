@@ -7,6 +7,12 @@ namespace NbaEcommerce.Models
 {
     public partial class Dispositivo
     {
+
+        public Dispositivo()
+        {
+            Prodotto = new HashSet<Prodotto>();
+        }
+
         [Required]
         public Guid Id { get; set; }
 
@@ -15,7 +21,9 @@ namespace NbaEcommerce.Models
 
         [Required]
         public Guid IdMarchio { get; set; }
-      
+
+        public ICollection<Prodotto> Prodotto { get; set; }
+
         public Marchio IdMarchioNavigation { get; set; }
     }
 }

@@ -39,10 +39,13 @@
                 <thead class="thead-dark">
                     <tr>
                         <th scope="col">
+                            @Html.DisplayNameFor(model => model.Categoria)
+                        </th>
+                        <th scope="col">
                             @Html.DisplayNameFor(model => model.Marchio)
                         </th>
                         <th scope="col">
-                            @Html.DisplayNameFor(model => model.Categoria)
+                            @Html.DisplayNameFor(model => model.Dispositivo)
                         </th>
                         <th scope="col">
                             @Html.DisplayNameFor(model => model.Titolo)
@@ -68,37 +71,40 @@
                 <tbody>
                     @foreach (var item in Model)
                     {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Marchio)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Categoria)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Titolo)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Descrizione)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.PrezzoVendita)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.PrezzoAcquisto)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Attivo)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Quantità)
-                        </td>
-                        <td class="text-right">
-                            <a asp-action="Edit" asp-route-id="@item.Id" title="Modifica"><i class="fas fa-edit"></i></a>
-                            <a asp-action="Details" asp-route-id="@item.Id" title="Dettaglio"><i class="fas fa-list-alt"></i></a>
-                            <a asp-action="Delete" asp-route-id="@item.Id" title="Elimina" class="text-danger"><i class="fas fa-trash"></i></a>
-                        </td>
-                    </tr>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Marchio)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Categoria)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Titolo)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Descrizione)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PrezzoVendita)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PrezzoAcquisto)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Attivo)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Dispositivo)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Quantità)
+                            </td>
+                            <td class="text-right">
+                                <a asp-action="Edit" asp-route-id="@item.Id" title="Modifica"><i class="fas fa-edit"></i></a>
+                                <a asp-action="Details" asp-route-id="@item.Id" title="Dettaglio"><i class="fas fa-list-alt"></i></a>
+                                <a asp-action="Delete" asp-route-id="@item.Id" title="Elimina" class="text-danger"><i class="fas fa-trash"></i></a>
+                            </td>
+                        </tr>
                     }
                 </tbody>
             </table>
