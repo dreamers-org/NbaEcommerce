@@ -17,7 +17,7 @@
     <div class="col-xs-12 col-sm-8 col-md-6">
         <div class="card border-left-primary shadow h-100">
             <div class="card-body">
-                <form asp-action="Edit">
+                <form asp-action="Edit" enctype="multipart/form-data">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <input type="hidden" asp-for="Id" />
                     <div class="form-group">

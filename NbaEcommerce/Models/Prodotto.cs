@@ -12,8 +12,16 @@ namespace NbaEcommerce.Models
         }
 
         public Guid Id { get; set; }
+
+        [DisplayName("Marchio")]
         public Guid IdMarchio { get; set; }
+
+        [DisplayName("Categoria")]
+
         public Guid IdCategoria { get; set; }
+
+        [DisplayName("Dispositivo")]
+
         public Guid IdDispositivo { get; set; }
 
         public string Titolo { get; set; }

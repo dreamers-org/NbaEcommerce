@@ -1,4 +1,4 @@
-﻿@model IEnumerable<NbaEcommerce.ViewModels.ViewProdottoViewModel>
+﻿@model IEnumerable<NbaEcommerce.Models.Prodotto>
 
 @{
     ViewData["Title"] = "Index";
@@ -39,20 +39,20 @@
                 <thead class="thead-dark">
                     <tr>
                         <th scope="col">
-                            @Html.DisplayNameFor(model => model.Categoria)
+                            @Html.DisplayNameFor(model => model.IdCategoria)
                         </th>
                         <th scope="col">
-                            @Html.DisplayNameFor(model => model.Marchio)
+                            @Html.DisplayNameFor(model => model.IdMarchio)
                         </th>
                         <th scope="col">
-                            @Html.DisplayNameFor(model => model.Dispositivo)
+                            @Html.DisplayNameFor(model => model.IdDispositivo)
                         </th>
                         <th scope="col">
                             @Html.DisplayNameFor(model => model.Titolo)
                         </th>
-                        <th scope="col">
+                        @*<th scope="col">
                             @Html.DisplayNameFor(model => model.Descrizione)
-                        </th>
+                        </th>*@
                         <th scope="col">
                             @Html.DisplayNameFor(model => model.PrezzoVendita)
                         </th>
@@ -66,6 +66,8 @@
                             @Html.DisplayNameFor(model => model.Quantità)
                         </th>
                         <th scope="col"></th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -73,17 +75,20 @@
                     {
                         <tr>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Marchio)
+                                @Html.DisplayFor(modelItem => item.IdCategoriaNavigation.Descrizione)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Categoria)
+                                @Html.DisplayFor(modelItem => item.IdMarchioNavigation.Descrizione)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IdDispositivoNavigation.Descrizione)
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.Titolo)
                             </td>
-                            <td>
+                            @*<td>
                                 @Html.DisplayFor(modelItem => item.Descrizione)
-                            </td>
+                            </td>*@
                             <td>
                                 @Html.DisplayFor(modelItem => item.PrezzoVendita)
                             </td>
@@ -93,15 +98,17 @@
                             <td>
                                 @Html.DisplayFor(modelItem => item.Attivo)
                             </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Dispositivo)
-                            </td>
+
                             <td>
                                 @Html.DisplayFor(modelItem => item.Quantità)
                             </td>
-                            <td class="text-right">
+                            <td>
                                 <a asp-action="Edit" asp-route-id="@item.Id" title="Modifica"><i class="fas fa-edit"></i></a>
+                            </td>
+                            <td>
                                 <a asp-action="Details" asp-route-id="@item.Id" title="Dettaglio"><i class="fas fa-list-alt"></i></a>
+                            </td>
+                            <td>
                                 <a asp-action="Delete" asp-route-id="@item.Id" title="Elimina" class="text-danger"><i class="fas fa-trash"></i></a>
                             </td>
                         </tr>

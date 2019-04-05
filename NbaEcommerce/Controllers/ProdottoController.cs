@@ -27,7 +27,11 @@ namespace NbaEcommerce.Controllers
             ViewData["marchio"] = marchio;
             ViewData["categoria"] = categoria;
 
-            var nbaStoreContext = _context.ViewProdotto.Where(x => (string.IsNullOrEmpty(marchio) || x.Marchio.Contains(marchio)) & (string.IsNullOrEmpty(categoria) || x.Categoria.Contains(categoria)));
+            var nbaStoreContext = _context.Prodotto
+                                    .Include(p => p.IdCategoriaNavigation)
+                                    .Include(p => p.IdMarchioNavigation)
+                                    .Include(p => p.IdDispositivoNavigation)
+                                    .Where(x => (string.IsNullOrEmpty(marchio) || x.IdMarchioNavigation.Descrizione.Contains(marchio)) & (string.IsNullOrEmpty(categoria) || x.IdCategoriaNavigation.Descrizione.Contains(categoria)));
             return View(await nbaStoreContext.ToListAsync());
         }
 
@@ -97,6 +101,8 @@ namespace NbaEcommerce.Controllers
             var prodotto = await _context.Prodotto
                 .Include(p => p.IdCategoriaNavigation)
                 .Include(p => p.IdMarchioNavigation)
+                .Include(p => p.IdDispositivoNavigation)
+                .Include(p => p.Immagine)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (prodotto == null)
             {
