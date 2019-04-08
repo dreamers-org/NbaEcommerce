@@ -40,6 +40,10 @@ namespace NbaEcommerce
                 });
 
                 services.AddDbContext<NbaStoreContext>(options => options.UseSqlServer(Configuration.GetConnectionString("NbaStoreContextConnection")));
+
+                //services.AddDbContext<NbaStoreContext>(options => options.UseInMemoryDatabase("test"));//(Configuration.GetConnectionString("NbaStoreContextConnection")));
+
+
                 services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
                 services.AddTransient<IEmailSender, EmailSender>();
                 services.AddScoped<IUserClaimsPrincipalFactory<NbaEcommerceUser>, CustomClaimsPrincipalFactory>();

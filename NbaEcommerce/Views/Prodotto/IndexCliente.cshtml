@@ -16,65 +16,94 @@
     <div class="col-sm-3">
         <div class="card border-left-primary shadow h-100">
             <div class="card-body">
-                <h4 class="mb-3">Filtra per</h4>
-
-
                 <form action="IndexCliente" method="post" class="mt-3" id="test">
-                    <h6><small class="text-muted">Categoria</small></h6>
-                    <hr />
-                    <div class="form-group ml-4">
-                        @foreach (NbaEcommerce.Models.Categoria categoria in ViewBag.categorie)
-                        {
-                            <div class="form-check">
-                                <input class="form-check-input gridCheck" type="checkbox" id="gridCheck" @(((String[])ViewBag.categorieSelezionate).Contains(categoria.Id.ToString()) ? "checked" : "") data-id="@categoria.Id" onchange="cambiaListaCategorie()">
-                                <label class="form-check-label" for="gridCheck">
-                                    @categoria.Descrizione
-                                </label>
-                            </div>
-                        }
-                    </div>
-
-                    <h6><small class="text-muted">Marchio</small></h6>
-                    <hr />
-                    <div class="form-group ml-4">
+                    <div class="accordion" id="accordionExample">
                         @foreach (NbaEcommerce.Models.Marchio marchio in ViewBag.marchi)
                         {
-                            <div class="form-check">
-                                <input class="form-check-input gridCheck2" type="checkbox" id="gridCheck2" @(((String[])ViewBag.marchiSelezionati).Contains(marchio.Id.ToString()) ? "checked" : "") data-id="@marchio.Id" onchange="cambiaListaMarchi()">
-                                <label class="form-check-label" for="gridCheck">
-                                    @marchio.Descrizione
-                                </label>
+                            <button class="btn btn-default col-12" type="button" data-toggle="collapse" data-target="@String.Format("#{0}",@marchio.Descrizione)" aria-expanded="true" aria-controls="@String.Format("#{0}",@marchio.Descrizione)">
+                                <div class="row border-bottom p-3">
+                                    <div class="col-6">
+                                        @marchio.Descrizione
+                                    </div>
+                                    <div class="col-6">
+                                        <i class="fas fa-chevron-right float-right"></i>
+                                    </div>
+                                </div>
+                            </button>
+
+                            <div id="@marchio.Descrizione" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                <div class="card-body">
+                                    @{
+                                        List<NbaEcommerce.Models.Dispositivo> dispositivi = ((List<NbaEcommerce.Models.Dispositivo>)ViewBag.dispositivi).Where(x => x.IdMarchio == marchio.Id).ToList();
+
+                                        foreach (NbaEcommerce.Models.Dispositivo item in dispositivi)
+                                        {
+                                            <a class="btn btn-default col-12" href="#">@item.Descrizione</a>
+                                        }
+
+                                    }
+                                </div>
                             </div>
                         }
                     </div>
-
-                    <h6><small class="text-muted">Dispositivi</small></h6>
-                    <hr />
-                    <div class="form-group ml-4">
-                        @foreach (NbaEcommerce.Models.Dispositivo dispositivo in ViewBag.dispositivi)
-                        {
-                            <div class="form-check">
-                                <input class="form-check-input gridCheck2" type="checkbox" id="gridCheck2" @(((String[])ViewBag.dispositiviSelezionati).Contains(dispositivo.Id.ToString()) ? "checked" : "") data-id="@dispositivo.Id" onchange="cambiaListaDispositivi()">
-                                <label class="form-check-label" for="gridCheck">
-                                    @dispositivo.Descrizione
-                                </label>
-                            </div>
-                        }
-                    </div>
-
-                    <h6><small class="text-muted">Prezzo massimo</small></h6>
-                    <hr />
-                    <div class="form-group text-center">
-                        <label id="lblRange" for="formControlRange">100€</label>
-                        <input name="maxPrezzo" type="range" min="0" max="200" value="100" class="form-control-range" id="formControlRange" oninput="document.getElementById('lblRange').innerHTML = this.value + '€';">
-                    </div>
-
-                    <input type="text" id="listaMarchi" name="listaMarchi" value="@(String.Join(";",(String[])ViewBag.marchiSelezionati))" style="display:none" />
-                    <input type="text" id="listaCategorie" name="listaCategorie" value="@(String.Join(";",(String[])ViewBag.categorieSelezionate))" style="display:none" />
-                    <input type="text" id="listaDispositivi" name="listaDispositivi" value="@(String.Join(";",(String[])ViewBag.dispositiviSelezionati))" style="display:none" />
-
-                    <input type="submit" value="Salva" style="display:none" />
                 </form>
+
+                @*<form action="IndexCliente" method="post" class="mt-3" id="test">
+                        <h6><small class="text-muted">Categoria</small></h6>
+                        <hr />
+                        <div class="form-group ml-4">
+                            @foreach (NbaEcommerce.Models.Categoria categoria in ViewBag.categorie)
+                            {
+                                <div class="form-check">
+                                    <input class="form-check-input gridCheck" type="checkbox" id="gridCheck" @(((String[])ViewBag.categorieSelezionate).Contains(categoria.Id.ToString()) ? "checked" : "") data-id="@categoria.Id" onchange="cambiaListaCategorie()">
+                                    <label class="form-check-label" for="gridCheck">
+                                        @categoria.Descrizione
+                                    </label>
+                                </div>
+                            }
+                        </div>
+
+                        <h6><small class="text-muted">Marchio</small></h6>
+                        <hr />
+                        <div class="form-group ml-4">
+                            @foreach (NbaEcommerce.Models.Marchio marchio in ViewBag.marchi)
+                            {
+                                <div class="form-check">
+                                    <input class="form-check-input gridCheck2" type="checkbox" id="gridCheck2" @(((String[])ViewBag.marchiSelezionati).Contains(marchio.Id.ToString()) ? "checked" : "") data-id="@marchio.Id" onchange="cambiaListaMarchi()">
+                                    <label class="form-check-label" for="gridCheck">
+                                        @marchio.Descrizione
+                                    </label>
+                                </div>
+                            }
+                        </div>
+
+                        <h6><small class="text-muted">Dispositivi</small></h6>
+                        <hr />
+                        <div class="form-group ml-4">
+                            @foreach (NbaEcommerce.Models.Dispositivo dispositivo in ViewBag.dispositivi)
+                            {
+                                <div class="form-check">
+                                    <input class="form-check-input gridCheck2" type="checkbox" id="gridCheck2" @(((String[])ViewBag.dispositiviSelezionati).Contains(dispositivo.Id.ToString()) ? "checked" : "") data-id="@dispositivo.Id" onchange="cambiaListaDispositivi()">
+                                    <label class="form-check-label" for="gridCheck">
+                                        @dispositivo.Descrizione
+                                    </label>
+                                </div>
+                            }
+                        </div>
+
+                        <h6><small class="text-muted">Prezzo massimo</small></h6>
+                        <hr />
+                        <div class="form-group text-center">
+                            <label id="lblRange" for="formControlRange">100€</label>
+                            <input name="maxPrezzo" type="range" min="0" max="200" value="100" class="form-control-range" id="formControlRange" oninput="document.getElementById('lblRange').innerHTML = this.value + '€';">
+                        </div>
+
+                        <input type="text" id="listaMarchi" name="listaMarchi" value="@(String.Join(";",(String[])ViewBag.marchiSelezionati))" style="display:none" />
+                        <input type="text" id="listaCategorie" name="listaCategorie" value="@(String.Join(";",(String[])ViewBag.categorieSelezionate))" style="display:none" />
+                        <input type="text" id="listaDispositivi" name="listaDispositivi" value="@(String.Join(";",(String[])ViewBag.dispositiviSelezionati))" style="display:none" />
+
+                        <input type="submit" value="Salva" style="display:none" />
+                    </form>*@
             </div>
         </div>
     </div>
@@ -88,7 +117,7 @@
                 <div style="height:200px;">
                     <img src="@imgSrc" style="cursor:pointer;" class="img-fluid" onclick="@string.Format("$('#exampleModalCenter-{0}').modal('show');",prodotto.Id)" />
                 </div>
-                <div  class="card-body text-center" style="cursor:pointer;" onclick="@string.Format("$('#exampleModalCenter-{0}').modal('show');",prodotto.Id)">
+                <div class="card-body text-center" style="cursor:pointer;" onclick="@string.Format("$('#exampleModalCenter-{0}').modal('show');",prodotto.Id)">
                     <h6 class="card-title">@prodotto.Titolo</h6>
 
                     <h5><strong class="ml-2"> @prodotto.PrezzoVendita €</strong></h5>
