@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using NbaEcommerce.Models;
 
 namespace NbaEcommerce.ViewModels
 {
@@ -8,11 +9,15 @@ namespace NbaEcommerce.ViewModels
     {
         public ViewProdottoViewModel()
         {
+            Immagine = new HashSet<Immagine>();
+
         }
 
         public Guid Id { get; set; }
         public Guid IdMarchio { get; set; }
         public Guid IdCategoria { get; set; }
+        public Guid IdDispositivo { get; set; }
+
         public string Titolo { get; set; }
         public string Dispositivo { get; set; }
 
@@ -28,7 +33,7 @@ namespace NbaEcommerce.ViewModels
         public string Marchio { get; set; }
         public string Categoria { get; set; }
 
-        public byte[] Immagine { get; set; }
+        public ICollection<Immagine> Immagine { get; set; }
 
     }
 }

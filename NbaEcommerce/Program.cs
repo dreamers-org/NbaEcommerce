@@ -22,9 +22,9 @@ namespace NbaEcommerce
                 .MinimumLevel.Warning()
                 .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
                 .Enrich.FromLogContext()
-                .WriteTo.MSSqlServer("Data Source=loft1mvc.database.windows.net;Initial Catalog=NbaStore;User ID=luca.bellavia.dev;Password=Pallone27@@;Connect Timeout=30;Encrypt=True;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False", "Logs", autoCreateSqlTable: true)
                 .CreateLogger();
                 CreateWebHostBuilder(args).Build().Run();
+                //.WriteTo.MSSqlServer("Data Source=loft1mvc.database.windows.net;Initial Catalog=NbaStore;User ID=luca.bellavia.dev;Password=Pallone27@@;Connect Timeout=30;Encrypt=True;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False", "Logs", autoCreateSqlTable: true)
             }
             catch (Exception ex)
             {

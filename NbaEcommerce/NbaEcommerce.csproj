@@ -7,6 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20190325194902_addedPropertiesToUser.cs" />
+    <Compile Remove="Migrations\20190325194902_addedPropertiesToUser.Designer.cs" />
+    <Compile Remove="Migrations\20190325201110_CorrectionToFiscalCode.cs" />
+    <Compile Remove="Migrations\20190325201110_CorrectionToFiscalCode.Designer.cs" />
+    <Compile Remove="Migrations\20190325202623_CorrectionToUserEntity.cs" />
+    <Compile Remove="Migrations\20190325202623_CorrectionToUserEntity.Designer.cs" />
+    <Compile Remove="Migrations\IdentityContextModelSnapshot.cs" />
+    <Compile Remove="Models\ViewModel\ViewProdottoViewModel.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="wwwroot\js\sitemap.ts" />
     <Content Remove="wwwroot\ts\index-cliente.ts" />
     <Content Remove="wwwroot\ts\main.ts" />
@@ -39,6 +50,7 @@
 
   <ItemGroup>
     <Folder Include="Areas\Identity\Services\" />
+    <Folder Include="Models\ViewModel\" />
   </ItemGroup>
 
 </Project>

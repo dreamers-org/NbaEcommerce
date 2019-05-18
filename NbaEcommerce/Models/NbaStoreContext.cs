@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using NbaEcommerce.ViewModels;
+//using NbaEcommerce.ViewModels;
 
 namespace NbaEcommerce.Models
 {
@@ -22,7 +22,6 @@ namespace NbaEcommerce.Models
         public virtual DbSet<Prodotto> Prodotto { get; set; }
         public virtual DbSet<Dispositivo> Dispositivo { get; set; }
 
-        public virtual DbQuery<ViewProdottoViewModel> ViewProdotto { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -94,6 +93,7 @@ namespace NbaEcommerce.Models
                  .OnDelete(DeleteBehavior.ClientSetNull)
                  .HasConstraintName("FK_Prodotto_Dispositivo");
             });
+
 
             modelBuilder.Entity<Dispositivo>(entity =>
             {

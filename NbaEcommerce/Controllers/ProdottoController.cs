@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using NbaEcommerce.Models;
-using NbaEcommerce.ViewModels;
+//using NbaEcommerce.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -41,52 +41,67 @@ namespace NbaEcommerce.Controllers
             ViewData["marchi"] = await _context.Marchio.ToListAsync();
             ViewData["dispositivi"] = await _context.Dispositivo.ToListAsync();
 
-            ViewData["marchiSelezionati"] = new String[0];
-            ViewData["categorieSelezionate"] = new String[0];
-            ViewData["dispositiviSelezionati"] = new String[0];
+            ViewData["marchioSelezionato"] = null;
+            ViewData["categoriaSelezionata"] = null;
+            ViewData["dispositivoSelezionato"] = null;
 
-            var nbaStoreContext = await _context.ViewProdotto.ToListAsync();
-            return View(nbaStoreContext);
+            List<Prodotto> listaProdotti = await _context.Prodotto.
+                                    Include(p => p.IdCategoriaNavigation)
+                                    .Include(p => p.IdMarchioNavigation)
+                                    .Include(p => p.IdDispositivoNavigation)
+                                    .Include(p => p.Immagine).ToListAsync();
+            return View(listaProdotti);
         }
 
 
         [HttpPost]
-        public async Task<IActionResult> IndexCliente(String listaMarchi, String listaCategorie, string listaDispositivi, int maxPrezzo)
+        public async Task<IActionResult> IndexCliente(Guid? marchio, Guid? categoria, Guid? dispositivo)
         {
             ViewData["categorie"] = await _context.Categoria.ToListAsync();
             ViewData["marchi"] = await _context.Marchio.ToListAsync();
             ViewData["dispositivi"] = await _context.Dispositivo.ToListAsync();
 
-            String[] arrayMarchiSelezionati = new string[0];
-            String[] arrayCategorieSelezionati = new string[0];
-            String[] arrayDispositiviSelezionati = new string[0];
+            List<Prodotto> listaProdotti = await _context.Prodotto
+                                    .Include(p => p.IdCategoriaNavigation)
+                                    .Include(p => p.IdMarchioNavigation)
+                                    .Include(p => p.IdDispositivoNavigation)
+                                    .Include(p => p.Immagine)
+                                    .Where(x => (marchio == null || x.IdMarchio == marchio) & (dispositivo == null || dispositivo == x.IdDispositivo) &(categoria == null || x.IdCategoria == categoria)).ToListAsync();
 
-            List<ViewProdottoViewModel> nbaStoreContext = new List<ViewProdottoViewModel>();
+            ViewData["dispositivoSelezionato"] = dispositivo;
+            ViewData["categoriaSelezionata"] = categoria;
+            ViewData["marchioSelezionato"] = marchio;
 
-            if (listaMarchi != null)
-            {
-                arrayMarchiSelezionati = listaMarchi?.Split(";");
-                ViewData["dispositivi"] = await _context.Dispositivo.Where(x => arrayMarchiSelezionati.Contains(x.IdMarchio.ToString())).ToListAsync();
-            }
+            return View(listaProdotti);
 
-            if (listaCategorie != null)
-            {
-                arrayCategorieSelezionati = listaCategorie?.Split(";");
+            //String[] arrayMarchiSelezionati = new string[0];
+            //String[] arrayCategorieSelezionati = new string[0];
+            //String[] arrayDispositiviSelezionati = new string[0];
+
+            //List<ViewProdottoViewModel> nbaStoreContext = new List<ViewProdottoViewModel>();
+
+            //if (listaMarchi != null)
+            //{
+            //    arrayMarchiSelezionati = listaMarchi?.Split(";");
+            //    ViewData["dispositivi"] = await _context.Dispositivo.Where(x => arrayMarchiSelezionati.Contains(x.IdMarchio.ToString())).ToListAsync();
+            //}
+
+            ////if (listaCategorie != null)
+            ////{
+            ////    arrayCategorieSelezionati = listaCategorie?.Split(";");
                 
-            }
+            ////}
 
-            if (listaDispositivi != null)
-            {
-                arrayDispositiviSelezionati = listaDispositivi?.Split(";");
-            }
+            //if (listaDispositivi != null)
+            //{
+            //    arrayDispositiviSelezionati = listaDispositivi?.Split(";");
+            //}
 
-            nbaStoreContext = await _context.ViewProdotto.Where(x => (arrayCategorieSelezionati.Length == 0 | arrayCategorieSelezionati.Contains(x.IdCategoria.ToString())) & (arrayMarchiSelezionati.Length == 0 | arrayMarchiSelezionati.Contains(x.IdMarchio.ToString()))).ToListAsync();
+            //nbaStoreContext = await _context.ViewProdotto.Where(x => (arrayCategorieSelezionati.Length == 0 | arrayCategorieSelezionati.Contains(x.IdCategoria.ToString())) & (arrayMarchiSelezionati.Length == 0 | arrayMarchiSelezionati.Contains(x.IdMarchio.ToString()))).ToListAsync();
 
-            ViewData["marchiSelezionati"] = arrayMarchiSelezionati;
-            ViewData["categorieSelezionate"] = arrayCategorieSelezionati;
-            ViewData["dispositiviSelezionati"] = arrayDispositiviSelezionati;
+          
 
-            return View(nbaStoreContext);
+            //return View(nbaStoreContext);
         }
 
 
@@ -143,7 +158,7 @@ namespace NbaEcommerce.Controllers
                     using (var memoryStream = new MemoryStream())
                     {
                         await formFile.CopyToAsync(memoryStream);
-                        Immagine img = new Immagine { Id = Guid.NewGuid(), IdProdotto = prodotto.Id, Data = memoryStream.ToArray() };
+                        Immagine img = new Immagine { Id = Guid.NewGuid(), IdProdotto = prodotto.Id, ImageInfo= formFile.FileName, Data = memoryStream.ToArray() };
                         _context.Immagine.Add(img);
                         await _context.SaveChangesAsync();
                     }
