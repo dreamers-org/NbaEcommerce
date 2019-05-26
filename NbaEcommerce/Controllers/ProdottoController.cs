@@ -66,7 +66,7 @@ namespace NbaEcommerce.Controllers
                                     .Include(p => p.IdMarchioNavigation)
                                     .Include(p => p.IdDispositivoNavigation)
                                     .Include(p => p.Immagine)
-                                    .Where(x => (marchio == null || x.IdMarchio == marchio) & (dispositivo == null || dispositivo == x.IdDispositivo) &(categoria == null || x.IdCategoria == categoria)).ToListAsync();
+                                    .Where(x => (marchio == null || x.IdMarchio == marchio) & (dispositivo == null || dispositivo == x.IdDispositivo) & (categoria == null || x.IdCategoria == categoria)).ToListAsync();
 
             ViewData["dispositivoSelezionato"] = dispositivo;
             ViewData["categoriaSelezionata"] = categoria;
@@ -89,7 +89,7 @@ namespace NbaEcommerce.Controllers
             ////if (listaCategorie != null)
             ////{
             ////    arrayCategorieSelezionati = listaCategorie?.Split(";");
-                
+
             ////}
 
             //if (listaDispositivi != null)
@@ -99,7 +99,7 @@ namespace NbaEcommerce.Controllers
 
             //nbaStoreContext = await _context.ViewProdotto.Where(x => (arrayCategorieSelezionati.Length == 0 | arrayCategorieSelezionati.Contains(x.IdCategoria.ToString())) & (arrayMarchiSelezionati.Length == 0 | arrayMarchiSelezionati.Contains(x.IdMarchio.ToString()))).ToListAsync();
 
-          
+
 
             //return View(nbaStoreContext);
         }
@@ -158,7 +158,7 @@ namespace NbaEcommerce.Controllers
                     using (var memoryStream = new MemoryStream())
                     {
                         await formFile.CopyToAsync(memoryStream);
-                        Immagine img = new Immagine { Id = Guid.NewGuid(), IdProdotto = prodotto.Id, ImageInfo= formFile.FileName, Data = memoryStream.ToArray() };
+                        Immagine img = new Immagine { Id = Guid.NewGuid(), IdProdotto = prodotto.Id, ImageInfo = formFile.FileName, Data = memoryStream.ToArray() };
                         _context.Immagine.Add(img);
                         await _context.SaveChangesAsync();
                     }
@@ -199,7 +199,7 @@ namespace NbaEcommerce.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,IdMarchio,IdCategoria,IdDispositivo,Titolo,Descrizione,PrezzoVendita,PrezzoAcquisto,Attivo,Quantità")] Prodotto prodotto,List<IFormFile> immagini)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Id,IdMarchio,IdCategoria,IdDispositivo,Titolo,Descrizione,PrezzoVendita,PrezzoAcquisto,Attivo,Quantità")] Prodotto prodotto, List<IFormFile> immagini)
         {
             if (id != prodotto.Id)
             {
@@ -242,7 +242,12 @@ namespace NbaEcommerce.Controllers
                     {
                         return NotFound();
                     }
+
                     else
+                    {
+
+
+                    }
                     {
                         throw;
                     }
@@ -307,6 +312,38 @@ namespace NbaEcommerce.Controllers
             }
 
             return dispositivi;
+        }
+
+
+        /// <summary>
+        /// Aggiunge il prodotto nel carrello.
+        /// </summary>
+        /// <param name="IdProdotto"></param>
+        /// <returns></returns>
+        public async Task<IActionResult> Aggiungi(Guid IdProdotto)
+        {
+            //ottengo l'oggetto attualmente salvato in sessione.
+            List<string> listaIdProdotti = new List<string>();
+
+            if (HttpContext.Session.GetObject<List<string>>(Utility.Utility._KeyCarrello) != null)
+            {
+
+                listaIdProdotti = HttpContext.Session.GetObject<List<string>>(Utility.Utility._KeyCarrello);
+
+                //controllo se listaProdotti contiene idProdotto ( la lista non può essere vuota: GetObject() restituisce il default di T)
+                
+            }
+
+            if (!listaIdProdotti.Contains(IdProdotto.ToString()))
+            {
+                //Aggiungo il prodotto alla lista
+                listaIdProdotti.Add(IdProdotto.ToString());
+
+                //aggiorno la sessione.
+                HttpContext.Session.SetObject(Utility.Utility._KeyCarrello, listaIdProdotti);
+            }
+
+            return RedirectToAction(nameof(IndexCliente));
         }
     }
 }

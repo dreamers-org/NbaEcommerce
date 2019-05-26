@@ -132,7 +132,7 @@
                         <h5><strong class="ml-2"> @prodotto.PrezzoVendita €</strong></h5>
                     </div>
                     <div class="card-footer">
-                        <button class="btn btn-xs btn-primary btn-block"><i class="fas fa-shopping-cart"></i>&nbsp;Acquista</button>
+                        <a asp-action="Aggiungi" asp-controller="Prodotto" asp-route-IdProdotto="@prodotto.Id" class="btn btn-xs btn-primary btn-block"><i class="fas fa-shopping-cart"></i>&nbsp;Acquista</a>
                     </div>
                 </div>
 

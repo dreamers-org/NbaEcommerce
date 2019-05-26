@@ -35,10 +35,10 @@
                     </ul>
                 </div>
                 <form class="form-inline my-2 my-lg-0">
-                    @if (User.IsInRole("Cliente"))
-                    {
-                        <a href="#" class="nav-link text-dark"><i class="fas fa-shopping-cart "></i></a>
-                    }
+                    @*@if (User.IsInRole("Cliente"))
+                    {*@
+                        <a asp-controller="Carrello" asp-action="Index" class="nav-link text-dark"><i class="fas fa-shopping-bag "></i></a>
+                    @*}*@
                 </form>
                 <partial name="_LoginPartial" />
             </div>

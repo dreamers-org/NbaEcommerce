@@ -1,0 +1,99 @@
+﻿@model IEnumerable<NbaEcommerce.Models.Prodotto>
+
+@{
+    ViewData["Title"] = "Il mio carrello";
+}
+
+<div class="row mt-2">
+    <div class="col-6">
+        <h2>@ViewData["Title"] </h2>
+    </div>
+    <div class="col-6">
+        <a asp-action="IndexCliente" asp-controller="Prodotto" class="btn btn-outline-dark float-right mt-2">Continua con gli acquisti</a>
+    </div>
+</div>
+
+<hr />
+
+<div class="row">
+
+    <div class="col-4 offset-2">
+        <div class="card border-left-primary shadow">
+            <div class="card-body">
+                <h4>Articoli</h4>
+
+                @foreach (Prodotto prodotto in Model)
+                {
+
+                    var base64 = Convert.ToBase64String(prodotto.Immagine.First().Data);
+                    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+
+                    <hr />
+                    <div class="row">
+                        <div class="col-5">
+                            <img src="@imgSrc" style=" cursor: pointer;" class="img-fluid" />
+
+                        </div>
+                        <div class="col-7">
+                            <h4 class="mt-4">
+                                <strong>@prodotto.PrezzoVendita €</strong>
+                                <br />
+                                <small>@prodotto.Descrizione</small>
+                            </h4>
+
+                            <label>Quanità</label>
+                            <select class="form-control form-control-sm">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                            </select>
+                                
+                        </div>
+                    </div>
+                }
+
+
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-4">
+        <div class="card border-left-primary shadow">
+            <div class="card-body">
+                <h4>Totale</h4>
+                <hr />
+
+                @{ 
+                    List<Prodotto> listaProdotti = Model.ToList();
+
+                  <h4><strong>@listaProdotti.Sum(x => x.PrezzoVendita) €</strong></h4>  
+
+                }
+
+                <a class="btn btn-success btn-block btn-lg" href="#">Acquista ora</a>
+
+                <a href="#" class="h1 text-dark">
+                    <i class="fab fa-cc-paypal"></i>
+                </a>
+                <a href="#" class="h1 text-dark">
+                    <i class="fab fa-cc-visa"></i>
+                </a>
+                <a href="#" class="h1 text-dark">
+                    <i class="fab fa-cc-amex"></i>
+                </a>
+                <a href="#" class="h1 text-dark">
+                    <i class="fab fa-cc-mastercard"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
