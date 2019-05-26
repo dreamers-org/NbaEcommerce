@@ -15,15 +15,14 @@ namespace NbaEcommerce.Areas.Identity
     {
         public void Configure(IWebHostBuilder builder)
         {
-            builder.ConfigureServices((context, services) => {
-                 services.AddDbContext<IdentityContext>(options => options.UseSqlServer(context.Configuration.GetConnectionString("IdentityContextConnection")));
+            builder.ConfigureServices((context, services) =>
+            {
+                services.AddDbContext<IdentityContext>(options => options.UseSqlServer(context.Configuration.GetConnectionString("IdentityContextConnection")));
 
                 services.AddIdentity<NbaEcommerceUser, IdentityRole>(config =>
                 {
-                    //config.Lockout = lockoutOptions; //TODO LUCA: SERVE? UTILE?
                     config.SignIn.RequireConfirmedEmail = false;
                 })
-
                     .AddEntityFrameworkStores<IdentityContext>()
                      .AddDefaultTokenProviders();
             });
