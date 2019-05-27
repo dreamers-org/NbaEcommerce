@@ -43,23 +43,25 @@
                         </li>
                     </ul>
                 </div>
-                <form class="form-inline my-2 my-lg-0">
-                    @if (User.IsInRole("Cliente"))
+                @*<form class="form-inline my-2 my-lg-0">
+                    @if (User.IsInRole("Utente"))
                     {
                         <a href="#" class="nav-link text-white"><i class="fas fa-shopping-cart "></i></a>
                     }
-                </form>
+                </form>*@
                 <partial name="_LoginPartial" />
             </div>
         </nav>
     </header>
 
-    <div class="container">
+    <div class="container mb-5">
         <partial name="_CookieConsentPartial" />
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
+
+    <partial name="_Footer" />
 
     @RenderSection("Scripts", required: false)
 </body>

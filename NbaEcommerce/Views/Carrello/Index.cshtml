@@ -17,79 +17,113 @@
 
 <hr />
 
-<div class="row">
+@if (User.IsInRole("Utente"))
+{
+    <div class="row">
 
-    <div class="col-4 offset-2">
-        <div class="card border-left-primary shadow">
-            <div class="card-body">
-                <h4>Articoli</h4>
+        <div class="col-4 offset-2">
+            <div class="card border-left-primary shadow">
+                <div class="card-body">
+                    <h4>Articoli</h4>
 
-                @foreach (Prodotto prodotto in Model)
-                {
+                    @foreach (Prodotto prodotto in Model)
+                    {
 
-                    var base64 = Convert.ToBase64String(prodotto.Immagine.First().Data);
-                    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                        var base64 = Convert.ToBase64String(prodotto.Immagine.First().Data);
+                        var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
 
-                    <hr />
-                    <div class="row">
-                        <div class="col-5">
-                            <img src="@imgSrc" style=" cursor: pointer;" class="img-fluid" />
+                        <hr />
+                        <div class="row">
+                            <div class="col-5">
+                                <img src="@imgSrc" style=" cursor: pointer;" class="img-fluid" />
+                            </div>
+                            <div class="col-5">
+                                <h4 class="mt-4">
+                                    <strong>@prodotto.PrezzoVendita €</strong>
+                                    <br />
+                                    <small>@prodotto.Descrizione</small>
+                                </h4>
 
+                                <label>Quanità</label>
+                                <select class="form-control form-control-sm">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+
+                            </div>
+                            <div class="col-2">
+                                <a class="text-secondary" asp-controller="Carrello" asp-action="EliminaProdotto" asp-route-id="@prodotto.Id"> <i class="fas fa-times"></i> </a>
+                            </div>
                         </div>
-                        <div class="col-7">
-                            <h4 class="mt-4">
-                                <strong>@prodotto.PrezzoVendita €</strong>
-                                <br />
-                                <small>@prodotto.Descrizione</small>
-                            </h4>
+                    }
 
-                            <label>Quanità</label>
-                            <select class="form-control form-control-sm">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                                <option value="8">8</option>
-                                <option value="9">9</option>
-                                <option value="10">10</option>
-                            </select>
+                </div>
+            </div>
+        </div>
+
+        @{
+            List<Prodotto> listaProdotti = Model.ToList();
+        }
+
+        <div class="col-4">
+            <div class="card border-left-primary shadow">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12 mb-2">
+                            <span class="float-left">Totale parziale</span>
+                            <span class="float-right">
+                                @{
+
+                                    <strong>@listaProdotti.Sum(x => x.PrezzoVendita) €</strong>
+                                }
+                            </span>
+                        </div>
+
+                        <div class="col-12 mb-2">
+                            <span class="float-left">Spedizione</span>
+                            <span class="float-right">
+                                @{
+
+                                    <strong>Gratuita</strong>
+                                }
+                            </span>
+                        </div>
+
+
+
+                        <div class="col-12 mb-2 border-top">
+                            <span class="float-left  mt-4">Totale Ordine</span>
+                            <span class="float-right  mt-4">
+                                @{
+
+                                    <strong>@listaProdotti.Sum(x => x.PrezzoVendita) €</strong>
+                                }
+                            </span>
+                        </div>
+
+                        <div id="divPayment" class="mt-5 col-8 offset-2">
 
                         </div>
                     </div>
-                }
-
-
-
-            </div>
-        </div>
-    </div>
-
-    <div class="col-4">
-        <div class="card border-left-primary shadow">
-            <div class="card-body">
-                <h4>Totale</h4>
-                <hr />
-
-                @{
-                    List<Prodotto> listaProdotti = Model.ToList();
-
-                    <h4><strong>@listaProdotti.Sum(x => x.PrezzoVendita) €</strong></h4>
-
-                }
-
-
-                <div id="divPayment" class="mt-5">
-
                 </div>
-
-
             </div>
         </div>
     </div>
-</div>
+}
+else
+{
+    <div class="col-sm-12">
+        <a asp-area="Identity" class="btn btn-primary" asp-page="/Account/Login">Accedi</a>
+    </div>
+}
 
 <script>paypal.Buttons().render('#divPayment');</script>
 

@@ -35,34 +35,23 @@
                     </ul>
                 </div>
                 <form class="form-inline my-2 my-lg-0">
-                    @*@if (User.IsInRole("Cliente"))
-                    {*@
-                    <a asp-controller="Carrello" asp-action="Index" class="nav-link text-dark"><i class="fas fa-shopping-bag "></i></a>
-                    @*}*@
+                  
+                        <a asp-controller="Carrello" asp-action="Index" class="nav-link text-dark"><i class="fas fa-shopping-bag "></i></a>
+                    
                 </form>
                 <partial name="_LoginPartial" />
             </div>
         </nav>
     </header>
 
-    <div class="container-fluid mt-3 ">
+    <div class="container-fluid mt-3 mb-5">
         <partial name="_CookieConsentPartial" />
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <div class="mt-5 py-4 small" style="height:150px; background-color:#e8eaed">
-        <div class="container">
-            <span class="text-dark ">First Footer</span>
-        </div>
-    </div>
-    <div class="bg-secondary mt-0 py-3 small" style="height:50px">
-        <div class="container">
-            <span class="text-white float-left">@@2019 NBA Tech Spare Parts</span>
-            <span class="text-white float-right">Informativa privacy | cookies</span>
-        </div>
-    </div>
+    <partial name="_Footer" />
 
     @RenderSection("Scripts", required: false)
 </body>
