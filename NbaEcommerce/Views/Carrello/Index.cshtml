@@ -4,6 +4,8 @@
     ViewData["Title"] = "Il mio carrello";
 }
 
+<script src="https://www.paypal.com/sdk/js?client-id=sb"></script>
+
 <div class="row mt-2">
     <div class="col-6">
         <h2>@ViewData["Title"] </h2>
@@ -54,7 +56,7 @@
                                 <option value="9">9</option>
                                 <option value="10">10</option>
                             </select>
-                                
+
                         </div>
                     </div>
                 }
@@ -71,29 +73,23 @@
                 <h4>Totale</h4>
                 <hr />
 
-                @{ 
+                @{
                     List<Prodotto> listaProdotti = Model.ToList();
 
-                  <h4><strong>@listaProdotti.Sum(x => x.PrezzoVendita) €</strong></h4>  
+                    <h4><strong>@listaProdotti.Sum(x => x.PrezzoVendita) €</strong></h4>
 
                 }
 
-                <a class="btn btn-success btn-block btn-lg" href="#">Acquista ora</a>
 
-                <a href="#" class="h1 text-dark">
-                    <i class="fab fa-cc-paypal"></i>
-                </a>
-                <a href="#" class="h1 text-dark">
-                    <i class="fab fa-cc-visa"></i>
-                </a>
-                <a href="#" class="h1 text-dark">
-                    <i class="fab fa-cc-amex"></i>
-                </a>
-                <a href="#" class="h1 text-dark">
-                    <i class="fab fa-cc-mastercard"></i>
-                </a>
+                <div id="divPayment" class="mt-5">
+
+                </div>
+
+
             </div>
         </div>
     </div>
 </div>
+
+<script>paypal.Buttons().render('#divPayment');</script>
 
