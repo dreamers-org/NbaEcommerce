@@ -3,6 +3,7 @@
 
 @{
     ViewData["Title"] = "Accedi";
+    Layout = "_LayoutRegister";
 }
 
 @*<h1>@ViewData["Title"]</h1>*@
@@ -10,7 +11,6 @@
     <div class="col-md-4">
         <section>
             <form id="account" method="post">
-                <hr />
                 <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="form-group">
                     <label asp-for="Input.Email" class="float-left"></label>
@@ -31,15 +31,19 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Log in</button>
+                    <button type="submit" class="btn btn-primary btn-block">Accedi</button>
                 </div>
                 <div class="form-group  text-center">
                     <p>
-                        <a id="forgot-password" asp-page="./ForgotPassword">Hai dimenticato la password?</a>
+                        <a id="forgot-password" class="small" asp-page="./ForgotPassword">Hai dimenticato la password?</a>
                     </p>
-                    @*<p>
-                            <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Registra un nuovo utente</a>
-                        </p>*@
+
+                    <hr />
+                    Non sei ancora registrato?
+                    
+                    <p>
+                        <a asp-area="Identity" class="btn btn-secondary btn-block mt-4" asp-page="/Account/Register">Crea un nuovo account</a>
+                    </p>
                 </div>
             </form>
         </section>
