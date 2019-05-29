@@ -35,9 +35,10 @@
                     </ul>
                 </div>
                 <form class="form-inline my-2 my-lg-0">
-                  
-                        <a asp-controller="Carrello" asp-action="Index" class="nav-link text-dark"><i class="fas fa-shopping-bag "></i></a>
-                    
+                    <a asp-controller="Carrello" asp-action="Index" class="nav-link text-dark">
+                        <i class="fas fa-shopping-cart"></i>
+                    </a>
+                    <span id="spanBadgeCart" class="badge badge-pill badge-danger" style="display:none;margin-left:-15px;margin-bottom: 10px;font-size:50%!important">&nbsp;</span>
                 </form>
                 <partial name="_LoginPartial" />
             </div>

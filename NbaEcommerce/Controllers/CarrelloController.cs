@@ -40,5 +40,27 @@ namespace NbaEcommerce.Controllers
 
             return View(listaProdotti);
         }
+
+
+        // GET: Dispositivo
+        public IActionResult EliminaProdotto(Guid Id)
+        {
+            List<Prodotto> listaProdotti = new List<Prodotto>();
+
+
+            //ottengo l'oggetto attualmente salvato in sessione.
+            List<string> listaIdProdotti = new List<string>();
+
+            if (HttpContext.Session.GetObject<List<string>>(Utility.Utility._KeyCarrello) != null)
+            {
+                listaIdProdotti = HttpContext.Session.GetObject<List<string>>(Utility.Utility._KeyCarrello);
+
+                listaIdProdotti.Remove(Id.ToString());
+
+                HttpContext.Session.SetObject(Utility.Utility._KeyCarrello, listaIdProdotti);
+            }
+
+            return RedirectToAction("Index");
+        }
     }
 }

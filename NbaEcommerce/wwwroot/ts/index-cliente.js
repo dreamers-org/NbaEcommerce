@@ -1,8 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+var utility_1 = require("./utility");
 function attivatorePaginaIndexCliente() {
     window["cambiaListaCategorie"] = cambiaListaCategorie;
     window["cambiaListaMarchi"] = cambiaListaMarchi;
+    utility_1.ShowBadgeCart();
 }
 exports.attivatorePaginaIndexCliente = attivatorePaginaIndexCliente;
 function cambiaListaMarchi() {
@@ -13,18 +15,6 @@ function cambiaListaMarchi() {
             valori += ";" + this.dataset.id;
         }
     });
-    //$.ajax({
-    //    type: "POST",
-    //    url: "/Prodotto/GetDispositiviByMarchio",
-    //    data: { marchiSelezionati: valori },
-    //    success: function (data) {
-    //        for (var i = 0; i < data.length; i++) {
-    //            console.log(data[i].id);
-    //        }
-    //    },
-    //    error: function () {
-    //    }
-    //});
     $("#listaMarchi").val(valori);
     $('#test').submit();
 }

@@ -257,7 +257,7 @@ var singleton = null;
 var	singletonCounter = 0;
 var	stylesInsertedAtTop = [];
 
-var	fixUrls = __webpack_require__(17);
+var	fixUrls = __webpack_require__(18);
 
 module.exports = function(list, options) {
 	if (typeof DEBUG !== "undefined" && DEBUG) {
@@ -4857,9 +4857,9 @@ __webpack_require__(12);
 //import librerie interne
 var sitemap_1 = __webpack_require__(13);
 //import dei css
-__webpack_require__(15);
-__webpack_require__(18);
-__webpack_require__(20);
+__webpack_require__(16);
+__webpack_require__(19);
+__webpack_require__(21);
 $(document).ready(function () {
     try {
         //ottengo l'url corrente.
@@ -12640,9 +12640,11 @@ exports.arrayPageModules = [
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+var utility_1 = __webpack_require__(15);
 function attivatorePaginaIndexCliente() {
     window["cambiaListaCategorie"] = cambiaListaCategorie;
     window["cambiaListaMarchi"] = cambiaListaMarchi;
+    utility_1.ShowBadgeCart();
 }
 exports.attivatorePaginaIndexCliente = attivatorePaginaIndexCliente;
 function cambiaListaMarchi() {
@@ -12653,18 +12655,6 @@ function cambiaListaMarchi() {
             valori += ";" + this.dataset.id;
         }
     });
-    //$.ajax({
-    //    type: "POST",
-    //    url: "/Prodotto/GetDispositiviByMarchio",
-    //    data: { marchiSelezionati: valori },
-    //    success: function (data) {
-    //        for (var i = 0; i < data.length; i++) {
-    //            console.log(data[i].id);
-    //        }
-    //    },
-    //    error: function () {
-    //    }
-    //});
     $("#listaMarchi").val(valori);
     $('#test').submit();
 }
@@ -12685,8 +12675,27 @@ function cambiaListaCategorie() {
 /* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
+"use strict";
 
-var content = __webpack_require__(16);
+Object.defineProperty(exports, "__esModule", { value: true });
+function ShowBadgeCart() {
+    try {
+        var spanBadgeCart = $("#ShowBadgeCart");
+        spanBadgeCart.show();
+    }
+    catch (e) {
+        console.log("Errore funzione: ShowBadgeCart");
+    }
+}
+exports.ShowBadgeCart = ShowBadgeCart;
+
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(17);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -12732,7 +12741,7 @@ if(false) {
 }
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
@@ -12742,7 +12751,7 @@ exports.push([module.i, "/*!\n * Bootstrap v4.3.1 (https://getbootstrap.com/)\n 
 
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports) {
 
 
@@ -12837,11 +12846,11 @@ module.exports = function (css) {
 
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(19);
+var content = __webpack_require__(20);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -12887,21 +12896,21 @@ if(false) {
 }
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
 // Module
-exports.push([module.i, "/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification\r\nfor details on configuring this project to bundle and minify static web assets. */\r\n\r\na.navbar-brand {\r\n    white-space: normal;\r\n    text-align: center;\r\n    word-break: break-all;\r\n}\r\n\r\n/* Sticky footer styles\r\n-------------------------------------------------- */\r\nhtml {\r\n    font-size: 14px;\r\n}\r\n\r\n@media (min-width: 768px) {\r\n    html {\r\n        font-size: 16px;\r\n    }\r\n}\r\n\r\n.border-top {\r\n    border-top: 1px solid #e5e5e5;\r\n}\r\n\r\n.border-bottom {\r\n    border-bottom: 1px solid #e5e5e5;\r\n}\r\n\r\n.box-shadow {\r\n    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);\r\n}\r\n\r\nbutton.accept-policy {\r\n    font-size: 1rem;\r\n    line-height: inherit;\r\n}\r\n\r\n/* Sticky footer styles\r\n-------------------------------------------------- */\r\nhtml {\r\n    position: relative;\r\n    min-height: 100%;\r\n}\r\n\r\nbody {\r\n    /* Margin bottom by footer height */\r\n    /*margin-bottom: 60px;*/\r\n}\r\n\r\n.footer-primary {\r\n    /*position: absolute;*/\r\n    /*bottom: 50px;*/\r\n    width: 100%;\r\n    height:250px; \r\n    background-color:#e8eaed;\r\n    margin-top:150px !important;\r\n}\r\n\r\n.footer-secondary {\r\n    /*position: absolute;\r\n    bottom: 0;*/\r\n    width: 100%;\r\n   height:70px;\r\n}\r\n", ""]);
+exports.push([module.i, "/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification\r\nfor details on configuring this project to bundle and minify static web assets. */\r\n\r\na.navbar-brand {\r\n    white-space: normal;\r\n    text-align: center;\r\n    word-break: break-all;\r\n}\r\n\r\n/* Sticky footer styles\r\n-------------------------------------------------- */\r\nhtml {\r\n    font-size: 14px;\r\n}\r\n\r\n@media (min-width: 768px) {\r\n    html {\r\n        font-size: 16px;\r\n    }\r\n}\r\n\r\n.border-top {\r\n    border-top: 1px solid #e5e5e5;\r\n}\r\n\r\n.border-bottom {\r\n    border-bottom: 1px solid #e5e5e5;\r\n}\r\n\r\n.box-shadow {\r\n    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);\r\n}\r\n\r\nbutton.accept-policy {\r\n    font-size: 1rem;\r\n    line-height: inherit;\r\n}\r\n\r\n.footer-primary {\r\n    width: 100%;\r\n    height:250px; \r\n    background-color:#e8eaed;\r\n    margin-top:150px !important;\r\n}\r\n\r\n.footer-secondary {\r\n    width: 100%;\r\n   height:70px;\r\n}\r\n", ""]);
 
 
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(21);
+var content = __webpack_require__(22);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -12947,7 +12956,7 @@ if(false) {
 }
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);

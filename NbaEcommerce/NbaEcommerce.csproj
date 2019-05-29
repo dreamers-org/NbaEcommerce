@@ -21,6 +21,7 @@
     <Content Remove="wwwroot\js\sitemap.ts" />
     <Content Remove="wwwroot\ts\index-cliente.ts" />
     <Content Remove="wwwroot\ts\main.ts" />
+    <Content Remove="wwwroot\ts\utility.ts" />
   </ItemGroup>
 
 
@@ -45,6 +46,7 @@
     <TypeScriptCompile Include="wwwroot\ts\index-cliente.ts" />
     <TypeScriptCompile Include="wwwroot\ts\sitemap.ts" />
     <TypeScriptCompile Include="wwwroot\ts\main.ts" />
+    <TypeScriptCompile Include="wwwroot\ts\utility.ts" />
   </ItemGroup>
 
 

@@ -1,6 +1,10 @@
-﻿export function attivatorePaginaIndexCliente() {
+﻿import { ShowBadgeCart } from './utility';
+
+export function attivatorePaginaIndexCliente() {
     window["cambiaListaCategorie"] = cambiaListaCategorie;
     window["cambiaListaMarchi"] = cambiaListaMarchi;
+
+    ShowBadgeCart();
 }
 
 function cambiaListaMarchi() {
@@ -13,21 +17,9 @@ function cambiaListaMarchi() {
         }
     });
 
-    //$.ajax({
-    //    type: "POST",
-    //    url: "/Prodotto/GetDispositiviByMarchio",
-    //    data: { marchiSelezionati: valori },
-    //    success: function (data) {
-    //        for (var i = 0; i < data.length; i++) {
-    //            console.log(data[i].id);
-    //        }
-    //    },
-    //    error: function () {
-    //    }
-    //});
-
     $("#listaMarchi").val(valori);
     $('#test').submit();
+
 }
 
 function cambiaListaCategorie() {
@@ -43,3 +35,5 @@ function cambiaListaCategorie() {
     $("#listaCategorie").val(valori);
     $('#test').submit();
 }
+
+
