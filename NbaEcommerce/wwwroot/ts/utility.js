@@ -2,8 +2,22 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 function ShowBadgeCart() {
     try {
-        var spanBadgeCart = $("#ShowBadgeCart");
-        spanBadgeCart.show();
+        $.ajax({
+            type: "GET",
+            url: "/Carrello/IsCarrelloEmpty",
+            contentType: "application/json",
+            dataType: "json",
+            success: function (response) {
+                console.log(response);
+                if (response != null) {
+                    var isVisibile = response;
+                    if (isVisibile) {
+                        var spanBadgeCart = $("#spanBadgeCart");
+                        spanBadgeCart.show();
+                    }
+                }
+            }
+        });
     }
     catch (e) {
         console.log("Errore funzione: ShowBadgeCart");

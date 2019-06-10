@@ -4860,6 +4860,7 @@ var sitemap_1 = __webpack_require__(13);
 __webpack_require__(16);
 __webpack_require__(19);
 __webpack_require__(21);
+var utility_1 = __webpack_require__(23);
 $(document).ready(function () {
     try {
         //ottengo l'url corrente.
@@ -4879,6 +4880,7 @@ $(document).ready(function () {
             }
         }
         //}
+        utility_1.ShowBadgeCart();
     }
     catch (ex) {
         //let err: Errore = new Errore
@@ -12625,10 +12627,15 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var index_cliente_1 = __webpack_require__(14);
+var carrello_1 = __webpack_require__(15);
 exports.arrayPageModules = [
     {
         page: "/Prodotto/IndexCliente",
         function: function (destination, template) { index_cliente_1.attivatorePaginaIndexCliente(); }
+    },
+    {
+        page: "/Carrello",
+        function: function (destination, template) { carrello_1.attivatorePaginaCarrello(); }
     }
 ];
 
@@ -12640,11 +12647,9 @@ exports.arrayPageModules = [
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var utility_1 = __webpack_require__(15);
 function attivatorePaginaIndexCliente() {
     window["cambiaListaCategorie"] = cambiaListaCategorie;
     window["cambiaListaMarchi"] = cambiaListaMarchi;
-    utility_1.ShowBadgeCart();
 }
 exports.attivatorePaginaIndexCliente = attivatorePaginaIndexCliente;
 function cambiaListaMarchi() {
@@ -12678,16 +12683,22 @@ function cambiaListaCategorie() {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-function ShowBadgeCart() {
-    try {
-        var spanBadgeCart = $("#ShowBadgeCart");
-        spanBadgeCart.show();
-    }
-    catch (e) {
-        console.log("Errore funzione: ShowBadgeCart");
-    }
+function attivatorePaginaCarrello() {
+    window["ricalcolaTotale"] = ricalcolaTotale;
+    ricalcolaTotale();
 }
-exports.ShowBadgeCart = ShowBadgeCart;
+exports.attivatorePaginaCarrello = attivatorePaginaCarrello;
+function ricalcolaTotale() {
+    var costoTotale = 0;
+    $(".select-prodotto").each(function () {
+        var selectArt = this;
+        var numeroArticoli = Number(selectArt.value);
+        var costoArticolo = Number(selectArt.dataset.costo);
+        costoTotale += numeroArticoli * costoArticolo;
+    });
+    console.log(costoTotale);
+    $("#lblTotale")[0].innerHTML = costoTotale + "€";
+}
 
 
 /***/ }),
@@ -12963,6 +12974,39 @@ exports = module.exports = __webpack_require__(2)(false);
 // Module
 exports.push([module.i, "/*.nav-item-active {\r\n    margin-bottom: -13px !important;\r\n    background-color: #5bc0de !important;\r\n}*/\r\n\r\n", ""]);
 
+
+
+/***/ }),
+/* 23 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+function ShowBadgeCart() {
+    try {
+        $.ajax({
+            type: "GET",
+            url: "/Carrello/IsCarrelloEmpty",
+            contentType: "application/json",
+            dataType: "json",
+            success: function (response) {
+                console.log(response);
+                if (response != null) {
+                    var isVisibile = response;
+                    if (isVisibile) {
+                        var spanBadgeCart = $("#spanBadgeCart");
+                        spanBadgeCart.show();
+                    }
+                }
+            }
+        });
+    }
+    catch (e) {
+        console.log("Errore funzione: ShowBadgeCart");
+    }
+}
+exports.ShowBadgeCart = ShowBadgeCart;
 
 
 /***/ })

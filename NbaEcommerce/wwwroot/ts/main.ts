@@ -14,6 +14,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/site.css';
 import '../css/menu.css';
 
+
+import { ShowBadgeCart } from './utility';
+
 $(document).ready(function () {
     try {
         //ottengo l'url corrente.
@@ -37,6 +40,9 @@ $(document).ready(function () {
                 }
             }
         //}
+
+        ShowBadgeCart();
+
     } catch (ex) {
         //let err: Errore = new Errore
         //err.tracciaErrore(ex, "document.ready_main.ts");

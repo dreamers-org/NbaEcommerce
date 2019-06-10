@@ -13,6 +13,7 @@ var sitemap_1 = require("./sitemap");
 require("bootstrap/dist/css/bootstrap.min.css");
 require("../css/site.css");
 require("../css/menu.css");
+var utility_1 = require("./utility");
 $(document).ready(function () {
     try {
         //ottengo l'url corrente.
@@ -32,6 +33,7 @@ $(document).ready(function () {
             }
         }
         //}
+        utility_1.ShowBadgeCart();
     }
     catch (ex) {
         //let err: Errore = new Errore

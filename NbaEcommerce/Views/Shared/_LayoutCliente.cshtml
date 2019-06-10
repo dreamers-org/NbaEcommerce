@@ -13,12 +13,13 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" href="#">
-                    <img src="~/images/logo.png" style="width:50px;height:50px" />
-                </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+                <a class="navbar-brand" href="#">
+                    <img src="~/images/logo.png" style="width:50px;height:50px" />
+                </a>
+
                 <div class="collapse navbar-collapse" id="navbarColor03">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
@@ -33,14 +34,19 @@
 
                         </li>
                     </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <form class="form-inline my-2 my-lg-0">
+                                <a asp-controller="Carrello" asp-action="Index" class="nav-link text-dark">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </a>
+                                <span id="spanBadgeCart" class="badge badge-pill badge-danger" style="display:none;margin-left:-15px;margin-bottom: 10px;font-size:40%!important">&nbsp;</span>
+                            </form>
+                        </li>
+                        <partial name="_LoginPartial" />
+                    </ul>
                 </div>
-                <form class="form-inline my-2 my-lg-0">
-                    <a asp-controller="Carrello" asp-action="Index" class="nav-link text-dark">
-                        <i class="fas fa-shopping-cart"></i>
-                    </a>
-                    <span id="spanBadgeCart" class="badge badge-pill badge-danger" style="display:none;margin-left:-15px;margin-bottom: 10px;font-size:50%!important">&nbsp;</span>
-                </form>
-                <partial name="_LoginPartial" />
             </div>
         </nav>
     </header>

@@ -114,17 +114,17 @@
                 </form>
             </div>
         </div>
-        <div class="row">
+        <div class="row justify-content-center justify-content-sm-start">
 
             @foreach (NbaEcommerce.Models.Prodotto prodotto in Model)
             {
                 var base64 = Convert.ToBase64String(prodotto.Immagine.First().Data);
                 var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
 
-                <div class="card ml-3 mb-3 shadow" style="        width: 12rem;
+                <div class="card ml-3 mb-3 shadow" style="        width: 10rem;
         max-height: 400px">
-                    <div style="        height: 200px;">
-                        <img src="@imgSrc" style="        cursor: pointer;" class="img-fluid" onclick="@string.Format(" $('#exampleModalCenter-{0}').modal('show');",prodotto.Id)" />
+                    <div style="height: 150px;">
+                        <img src="@imgSrc" style="cursor: pointer;height:100%" class="img-fluid" onclick="@string.Format(" $('#exampleModalCenter-{0}').modal('show');",prodotto.Id)" />
                     </div>
                     <div class="card-body text-center" style="        cursor: pointer;" onclick="@string.Format(" $('#exampleModalCenter-{0}').modal('show');",prodotto.Id)">
                         <h6 class="card-title">@prodotto.Titolo</h6>

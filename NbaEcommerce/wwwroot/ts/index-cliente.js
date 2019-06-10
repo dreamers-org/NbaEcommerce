@@ -1,10 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var utility_1 = require("./utility");
 function attivatorePaginaIndexCliente() {
     window["cambiaListaCategorie"] = cambiaListaCategorie;
     window["cambiaListaMarchi"] = cambiaListaMarchi;
-    utility_1.ShowBadgeCart();
 }
 exports.attivatorePaginaIndexCliente = attivatorePaginaIndexCliente;
 function cambiaListaMarchi() {

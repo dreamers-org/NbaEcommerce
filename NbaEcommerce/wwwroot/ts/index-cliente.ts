@@ -1,10 +1,10 @@
-﻿import { ShowBadgeCart } from './utility';
+﻿
 
 export function attivatorePaginaIndexCliente() {
     window["cambiaListaCategorie"] = cambiaListaCategorie;
     window["cambiaListaMarchi"] = cambiaListaMarchi;
 
-    ShowBadgeCart();
+
 }
 
 function cambiaListaMarchi() {

@@ -62,5 +62,27 @@ namespace NbaEcommerce.Controllers
 
             return RedirectToAction("Index");
         }
+
+
+        public JsonResult IsCarrelloEmpty()
+        {
+            bool result = false;
+
+            //ottengo l'oggetto attualmente salvato in sessione.
+            List<string> listaIdProdotti = new List<string>();
+
+            if (HttpContext.Session.GetObject<List<string>>(Utility.Utility._KeyCarrello) != null)
+            {
+                listaIdProdotti = HttpContext.Session.GetObject<List<string>>(Utility.Utility._KeyCarrello);
+
+                if (listaIdProdotti != null && listaIdProdotti.Count > 0)
+                {
+                    result = true;
+                }
+
+            }
+
+            return new JsonResult(result);
+        }
     }
 }

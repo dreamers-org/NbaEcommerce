@@ -43,13 +43,9 @@
                         </li>
                     </ul>
                 </div>
-                @*<form class="form-inline my-2 my-lg-0">
-                    @if (User.IsInRole("Utente"))
-                    {
-                        <a href="#" class="nav-link text-white"><i class="fas fa-shopping-cart "></i></a>
-                    }
-                </form>*@
-                <partial name="_LoginPartial" />
+                <ul class="nav navbar-nav navbar-right">
+                    <partial name="_LoginPartial" />
+                </ul>
             </div>
         </nav>
     </header>
