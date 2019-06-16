@@ -25,17 +25,20 @@ namespace NbaEcommerce.Controllers
 
 
             //ottengo l'oggetto attualmente salvato in sessione.
-            List<string> listaIdProdotti = new List<string>();
+            List<carrelloProdotto> listaIdProdotti = new List<carrelloProdotto>();
 
-            if (HttpContext.Session.GetObject<List<string>>(Utility.Utility._KeyCarrello) != null)
+            
+
+            if (HttpContext.Session.GetObject<List<carrelloProdotto>>(Utility.Utility._KeyCarrello) != null)
             {
-                listaIdProdotti = HttpContext.Session.GetObject<List<string>>(Utility.Utility._KeyCarrello);
+                listaIdProdotti = HttpContext.Session.GetObject<List<carrelloProdotto>>(Utility.Utility._KeyCarrello);
 
+                List<string> listaId = listaIdProdotti.Select(x => x.Id).ToList();
                 listaProdotti = await _context.Prodotto.Include(p => p.IdCategoriaNavigation)
                                     .Include(p => p.IdMarchioNavigation)
                                     .Include(p => p.IdDispositivoNavigation)
                                     .Include(p => p.Immagine)
-                                    .Where(x => listaIdProdotti.Contains(x.Id.ToString())).ToListAsync();
+                                    .Where(x => listaId.Contains(x.Id.ToString())).ToListAsync();
             }
 
             return View(listaProdotti);
@@ -45,19 +48,59 @@ namespace NbaEcommerce.Controllers
         // GET: Dispositivo
         public IActionResult EliminaProdotto(Guid Id)
         {
-            List<Prodotto> listaProdotti = new List<Prodotto>();
 
 
             //ottengo l'oggetto attualmente salvato in sessione.
-            List<string> listaIdProdotti = new List<string>();
+            List<carrelloProdotto> listaIdProdotti = new List<carrelloProdotto>();
 
-            if (HttpContext.Session.GetObject<List<string>>(Utility.Utility._KeyCarrello) != null)
+            if (HttpContext.Session.GetObject<List<carrelloProdotto>>(Utility.Utility._KeyCarrello) != null)
             {
-                listaIdProdotti = HttpContext.Session.GetObject<List<string>>(Utility.Utility._KeyCarrello);
+                listaIdProdotti = HttpContext.Session.GetObject<List<carrelloProdotto>>(Utility.Utility._KeyCarrello);
 
-                listaIdProdotti.Remove(Id.ToString());
+               var prodotto=  listaIdProdotti.Where(x => x.Id == Id.ToString()).First();
+                listaIdProdotti.Remove(prodotto);
 
                 HttpContext.Session.SetObject(Utility.Utility._KeyCarrello, listaIdProdotti);
+            }
+
+            return RedirectToAction("Index");
+        }
+
+
+        public IActionResult CreaOrdine()
+        {
+
+            //ottengo l'oggetto attualmente salvato in sessione.
+            List<carrelloProdotto> listaIdProdotti = new List<carrelloProdotto>();
+
+            if (HttpContext.Session.GetObject<List<carrelloProdotto>>(Utility.Utility._KeyCarrello) != null)
+            {
+                listaIdProdotti = HttpContext.Session.GetObject<List<carrelloProdotto>>(Utility.Utility._KeyCarrello);
+
+                //creo l'ordine
+                Guid idOrdine = new Guid();
+                OrdineCliente ordineCliente = new OrdineCliente()
+                {
+                    Id = idOrdine,
+                    IdCliente = new Guid("c413dc21-af58-4a5c-8ff4-bf43e4a4d782"),
+                    DataInserimento = DateTime.Now,
+                    DataModifica = DateTime.Now,
+                    UtenteInserimento = HttpContext.User.Identity.Name,
+                    UtenteModifica = HttpContext.User.Identity.Name,
+                    Spedito = false,
+                    SpeditoInParte = false,
+                    DataConsegna = DateTime.Now.AddMonths(1),
+                    Note = string.Empty,
+                    Pagato = false
+                };
+
+                _context.OrdineCliente.Add(ordineCliente);
+
+                foreach (var item in listaIdProdotti)
+                {
+
+                }
+
             }
 
             return RedirectToAction("Index");
@@ -69,11 +112,11 @@ namespace NbaEcommerce.Controllers
             bool result = false;
 
             //ottengo l'oggetto attualmente salvato in sessione.
-            List<string> listaIdProdotti = new List<string>();
+            List<carrelloProdotto> listaIdProdotti = new List<carrelloProdotto>();
 
-            if (HttpContext.Session.GetObject<List<string>>(Utility.Utility._KeyCarrello) != null)
+            if (HttpContext.Session.GetObject<List<carrelloProdotto>>(Utility.Utility._KeyCarrello) != null)
             {
-                listaIdProdotti = HttpContext.Session.GetObject<List<string>>(Utility.Utility._KeyCarrello);
+                listaIdProdotti = HttpContext.Session.GetObject<List<carrelloProdotto>>(Utility.Utility._KeyCarrello);
 
                 if (listaIdProdotti != null && listaIdProdotti.Count > 0)
                 {

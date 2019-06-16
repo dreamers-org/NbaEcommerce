@@ -22,6 +22,10 @@ namespace NbaEcommerce.Models
         public virtual DbSet<Prodotto> Prodotto { get; set; }
         public virtual DbSet<Dispositivo> Dispositivo { get; set; }
 
+        public virtual DbSet<OrdineCliente> OrdineCliente { get; set; }
+
+        public virtual DbSet<RigaOrdineCliente> RigaOrdineCliente { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -104,6 +108,67 @@ namespace NbaEcommerce.Models
                 .HasForeignKey(d => d.IdMarchio)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Dispositivo_Marchio");
+            });
+
+            modelBuilder.Entity<OrdineCliente>(entity =>
+            {
+                entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
+
+                entity.Property(e => e.DataConsegna).HasColumnType("datetime");
+
+                entity.Property(e => e.DataInserimento)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.DataModifica).HasColumnType("datetime");
+
+                entity.Property(e => e.Note)
+                    .HasMaxLength(8000)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.UtenteInserimento)
+                    .IsRequired()
+                    .HasMaxLength(128)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.UtenteModifica)
+                    .HasMaxLength(128)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<RigaOrdineCliente>(entity =>
+            {
+                entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
+
+
+                entity.Property(e => e.DataInserimento)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.DataModifica).HasColumnType("datetime");
+
+               
+                entity.Property(e => e.UtenteInserimento)
+                    .IsRequired()
+                    .HasMaxLength(128)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.UtenteModifica)
+                    .HasMaxLength(128)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.IdProdottoNavigation)
+                  .WithMany(p => p.RigaOrdineCliente)
+                  .HasForeignKey(d => d.IdProdotto)
+                  .OnDelete(DeleteBehavior.ClientSetNull)
+                  .HasConstraintName("FK_RigaOrdineCliente_Prodotto");
+
+                entity.HasOne(d => d.IdOrdineNavigation)
+                  .WithMany(p => p.RigaOrdineCliente)
+                  .HasForeignKey(d => d.IdOrdine)
+                  .OnDelete(DeleteBehavior.ClientSetNull)
+                  .HasConstraintName("FK_RigaOrdineCliente_OrdineCliente");
+
             });
         }
     }

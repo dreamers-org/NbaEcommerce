@@ -43,3 +43,11 @@ public static class SessionExtensions
     }
 
 }
+
+
+class carrelloProdotto
+{
+    public string Id { get; set; }
+
+    public int Quantita { get; set; }
+}

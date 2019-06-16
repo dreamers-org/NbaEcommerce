@@ -39,5 +39,7 @@ namespace NbaEcommerce.Models
         public Marchio IdMarchioNavigation { get; set; }
         public Dispositivo IdDispositivoNavigation { get; set; }
         public ICollection<Immagine> Immagine { get; set; }
+
+        public ICollection<RigaOrdineCliente> RigaOrdineCliente { get; set; }
     }
 }

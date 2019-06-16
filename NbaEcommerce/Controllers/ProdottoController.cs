@@ -323,21 +323,21 @@ namespace NbaEcommerce.Controllers
         public async Task<IActionResult> Aggiungi(Guid IdProdotto)
         {
             //ottengo l'oggetto attualmente salvato in sessione.
-            List<string> listaIdProdotti = new List<string>();
+            List<carrelloProdotto> listaIdProdotti = new List<carrelloProdotto>();
 
-            if (HttpContext.Session.GetObject<List<string>>(Utility.Utility._KeyCarrello) != null)
+            if (HttpContext.Session.GetObject<List<carrelloProdotto>>(Utility.Utility._KeyCarrello) != null)
             {
 
-                listaIdProdotti = HttpContext.Session.GetObject<List<string>>(Utility.Utility._KeyCarrello);
+                listaIdProdotti = HttpContext.Session.GetObject<List<carrelloProdotto>>(Utility.Utility._KeyCarrello);
 
                 //controllo se listaProdotti contiene idProdotto ( la lista non può essere vuota: GetObject() restituisce il default di T)
                 
             }
 
-            if (!listaIdProdotti.Contains(IdProdotto.ToString()))
+            if (!(listaIdProdotti.Where(x => x.Id == IdProdotto.ToString()).ToList().Count > 0))
             {
                 //Aggiungo il prodotto alla lista
-                listaIdProdotti.Add(IdProdotto.ToString());
+                listaIdProdotti.Add(new carrelloProdotto() { Id = IdProdotto.ToString(), Quantita = 0 });
 
                 //aggiorno la sessione.
                 HttpContext.Session.SetObject(Utility.Utility._KeyCarrello, listaIdProdotti);
