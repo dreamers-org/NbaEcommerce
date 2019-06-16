@@ -8,7 +8,7 @@ exports.arrayPageModules = [
         function: function (destination, template) { index_cliente_1.attivatorePaginaIndexCliente(); }
     },
     {
-        page: "/Prodotto/Carrello",
+        page: "/Carrello",
         function: function (destination, template) { carrello_1.attivatorePaginaCarrello(); }
     }
 ];
