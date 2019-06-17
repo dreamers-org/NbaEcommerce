@@ -12,7 +12,7 @@ namespace NbaEcommerce.Models
 
         public bool Spedito { get; set; }
 
-        public int Quanita { get; set; }
+        public int Quantita { get; set; }
 
         public DateTime DataInserimento { get; set; }
         public DateTime? DataModifica { get; set; }

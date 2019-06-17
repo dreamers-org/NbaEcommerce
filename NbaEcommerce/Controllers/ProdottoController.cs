@@ -327,17 +327,14 @@ namespace NbaEcommerce.Controllers
 
             if (HttpContext.Session.GetObject<List<carrelloProdotto>>(Utility.Utility._KeyCarrello) != null)
             {
-
                 listaIdProdotti = HttpContext.Session.GetObject<List<carrelloProdotto>>(Utility.Utility._KeyCarrello);
-
-                //controllo se listaProdotti contiene idProdotto ( la lista non può essere vuota: GetObject() restituisce il default di T)
-                
             }
 
+            //controllo se listaProdotti contiene idProdotto ( la lista non può essere vuota: GetObject() restituisce il default di T)
             if (!(listaIdProdotti.Where(x => x.Id == IdProdotto.ToString()).ToList().Count > 0))
             {
                 //Aggiungo il prodotto alla lista
-                listaIdProdotti.Add(new carrelloProdotto() { Id = IdProdotto.ToString(), Quantita = 0 });
+                listaIdProdotti.Add(new carrelloProdotto() { Id = IdProdotto.ToString(), Quantita = 1 });
 
                 //aggiorno la sessione.
                 HttpContext.Session.SetObject(Utility.Utility._KeyCarrello, listaIdProdotti);

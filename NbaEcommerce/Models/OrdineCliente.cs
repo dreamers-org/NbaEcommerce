@@ -16,7 +16,7 @@ namespace NbaEcommerce.Models
         public string UtenteModifica { get; set; }
         public bool Spedito { get; set; }
         public bool SpeditoInParte { get; set; }
-
+        public double PrezzoOrdine { get; set; }
         public ICollection<RigaOrdineCliente> RigaOrdineCliente { get; set; }
 
     }

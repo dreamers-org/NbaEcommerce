@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 function attivatorePaginaCarrello() {
-    window["ricalcolaTotale"] = ricalcolaTotale;
+    window["aggiornaQuantita"] = aggiornaQuantita;
     ricalcolaTotale();
 }
 exports.attivatorePaginaCarrello = attivatorePaginaCarrello;
@@ -15,5 +15,22 @@ function ricalcolaTotale() {
     });
     console.log(costoTotale);
     $("#lblTotale")[0].innerHTML = costoTotale + "€";
+}
+function aggiornaQuantita(ddl, url) {
+    ricalcolaTotale();
+    if (ddl != null && ddl.value != null) {
+        var valoreCombo = Number(ddl.value);
+        var idProdottoTest = ddl.dataset.idprodotto;
+        console.log(valoreCombo);
+        console.log(idProdottoTest);
+        $.ajax({
+            type: "POST",
+            url: "/Carrello/AggiornaQuantita",
+            data: { idprodotto: idProdottoTest, quantita: valoreCombo.toString() },
+            success: function (response) {
+                console.log("Quantità cambiato con successo");
+            }
+        });
+    }
 }
 //# sourceMappingURL=carrello.js.map

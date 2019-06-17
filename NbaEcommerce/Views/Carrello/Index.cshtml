@@ -50,7 +50,7 @@
                                 </h4>
 
                                 <label>Quanità</label>
-                                <select data-costo="@prodotto.PrezzoVendita" class="form-control form-control-sm select-prodotto" onchange="ricalcolaTotale()">
+                                <select data-costo="@prodotto.PrezzoVendita" class="form-control form-control-sm select-prodotto" data-idProdotto="@prodotto.Id" onchange="aggiornaQuantita(this, '@Url.Action("AggiornaQuantita", "Carrello")')">
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
@@ -119,9 +119,12 @@
 
                         @if (User.IsInRole("Utente"))
                         {
+                            <a asp-controller="Carrello" asp-action="CreaOrdine" class="btn btn-primary btn-sm">Paga test</a>
+
                             <div id="divPayment" class="mt-5 col-8 offset-2">
 
                             </div>
+
                         }
                         else
                         {
